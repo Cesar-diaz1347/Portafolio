@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embozado de tarjetas de crédito — Demo · César Díaz</title>
+<meta name="description" content="Simulación del sistema que arma los lotes de tarjetas enviados a la embozadora: valida cada solicitud, detecta plásticos con número inválido, genera el lote y controla los estados hasta la entrega al cliente.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/demo.css">
+<script>(function(){try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+</head>
+<body>
+
+<header class="demo-nav">
+  <div class="contenedor demo-nav__inner">
+    <a class="demo-nav__volver" href="../../index.html">&#8592; Volver al portafolio</a>
+    <div class="demo-nav__titulo">Embozado de tarjetas de crédito<small>Banco Internacional</small></div>
+    <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
+      <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
+      <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="demo-main">
+  <section class="demo-hero contenedor">
+    <h1>💳 Embozado de tarjetas de crédito</h1>
+    <p>Simulación del sistema que arma los lotes de tarjetas enviados a la embozadora: valida cada solicitud, detecta plásticos con número inválido, genera el lote y controla los estados hasta la entrega al cliente.</p>
+    <div class="demo-hero__stack">
+        <span class="chip chip--accent">C# .NET</span>
+        <span class="chip chip--accent">T-SQL</span>
+        <span class="chip chip--accent">Stored Procedures</span>
+        <span class="chip chip--accent">WinForms</span>
+    </div>
+    <div class="aviso">
+      <span aria-hidden="true">⚠️</span>
+      <span><b>Demo con datos ficticios.</b> Los números de tarjeta son generados al azar y siempre se muestran enmascarados; ningún dato corresponde a un cliente real.</span>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="kpis" style="margin-bottom:1.1rem">
+      <div class="kpi"><b id="kpi-pendientes">0</b><span>Solicitudes recibidas</span></div>
+      <div class="kpi"><b id="kpi-validas">0</b><span>Válidas en cola</span></div>
+      <div class="kpi"><b id="kpi-rechazadas">0</b><span>Rechazadas</span></div>
+      <div class="kpi"><b id="kpi-lotes">0</b><span>Lotes generados</span></div>
+    </div>
+
+    <div class="grid-lateral">
+      <div class="panel">
+        <h2 class="panel__titulo">Nueva solicitud de plástico</h2>
+        <label class="campo">
+          <span>Titular</span>
+          <input id="titular" type="text" placeholder="Nombre como aparecerá embozado" maxlength="26">
+        </label>
+        <div class="grid-2">
+          <label class="campo">
+            <span>Producto</span>
+            <select id="producto">
+              <option value="visa-clasica">Visa Clásica (BIN 4)</option>
+              <option value="visa-oro">Visa Oro (BIN 4)</option>
+              <option value="mc-platino">Mastercard Platino (BIN 5)</option>
+            </select>
+          </label>
+          <label class="campo">
+            <span>Vencimiento (MM/AA)</span>
+            <input id="vencimiento" type="text" placeholder="08/30" maxlength="5">
+          </label>
+        </div>
+        <label class="campo">
+          <span>Número de tarjeta (16 dígitos)</span>
+          <input id="numero" type="text" inputmode="numeric" placeholder="4123 4567 8901 2345" maxlength="19">
+        </label>
+        <div class="fila">
+          <button class="btn btn--primario" type="button" id="crear">Validar y encolar</button>
+          <button class="btn btn--sm" type="button" id="autogenerar">🎲 Autogenerar válida</button>
+          <button class="btn btn--sm" type="button" id="autogenerar-mala">💥 Autogenerar con error</button>
+        </div>
+        <p class="muted" style="font-size:.84rem; margin-top:.9rem">
+          Se valida el dígito verificador con el algoritmo de Luhn, que el BIN corresponda al producto,
+          que el vencimiento sea futuro y que el titular quepa en los 26 caracteres que admite la embozadora.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel__titulo">Bitácora del proceso</h2>
+        <div class="consola" id="bitacora"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.1rem">
+      <h2 class="panel__titulo">
+        Cola de solicitudes
+        <span class="contador">
+          <button class="btn btn--sm" type="button" id="generar-lote">📦 Generar lote con las válidas</button>
+          <button class="btn btn--sm" type="button" id="limpiar">🧹 Reiniciar demo</button>
+        </span>
+      </h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr><th>Solicitud</th><th>Titular</th><th>Producto</th><th>Tarjeta</th><th>Vence</th><th>Estado</th><th>Observación</th></tr>
+          </thead>
+          <tbody id="tabla-solicitudes"></tbody>
+        </table>
+      </div>
+      <p class="vacio" id="solicitudes-vacio">Sin solicitudes todavía. Crea una arriba o usa el autogenerador.</p>
+    </div>
+
+    <div class="panel" style="margin-top:1.1rem">
+      <h2 class="panel__titulo">Lotes enviados a la embozadora <span class="contador" id="conteo-lotes">0</span></h2>
+      <ul class="lista" id="lotes"></ul>
+      <p class="vacio" id="lotes-vacio">Aún no se ha generado ningún lote.</p>
+    </div>
+
+  </section>
+</main>
+
+<footer class="pie-demo">
+  <div class="contenedor">
+    <strong>Qué demuestra este proyecto</strong>
+    <ul class="muted">
+        <li>Validación de datos críticos antes de enviar el lote a la máquina embozadora (algoritmo de Luhn, BIN y vencimiento).</li>
+        <li>Separación entre solicitudes válidas y rechazadas con motivo del rechazo.</li>
+        <li>Máquina de estados solicitada → en lote → embozada → entregada con bitácora.</li>
+        <li>Exportación del lote en formato plano, como lo consume el proveedor de embozado.</li>
+    </ul>
+    <a class="btn btn--sm" href="../../index.html">&#8592; Volver al portafolio</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/demo-utils.js"></script>
+<script src="embozado.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sorteos diarios — Demo · César Díaz</title>
+<meta name="description" content="Motor de sorteos de campaña: carga los participantes elegibles, ejecuta la selección aleatoria con una semilla registrada —para poder reproducir el resultado ante auditoría—, evita ganadores repetidos y guarda el historial.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/demo.css">
+<script>(function(){try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+</head>
+<body>
+
+<header class="demo-nav">
+  <div class="contenedor demo-nav__inner">
+    <a class="demo-nav__volver" href="../../index.html">&#8592; Volver al portafolio</a>
+    <div class="demo-nav__titulo">Sorteos diarios<small>Banco Internacional</small></div>
+    <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
+      <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
+      <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="demo-main">
+  <section class="demo-hero contenedor">
+    <h1>🎲 Sorteos diarios</h1>
+    <p>Motor de sorteos de campaña: carga los participantes elegibles, ejecuta la selección aleatoria con una semilla registrada —para poder reproducir el resultado ante auditoría—, evita ganadores repetidos y guarda el historial.</p>
+    <div class="demo-hero__stack">
+        <span class="chip chip--accent">C# .NET</span>
+        <span class="chip chip--accent">SQL Server</span>
+        <span class="chip chip--accent">JavaScript</span>
+    </div>
+    <div class="aviso">
+      <span aria-hidden="true">⚠️</span>
+      <span><b>Demo con datos ficticios.</b> Los participantes son ficticios. El generador con semilla es el mismo concepto usado para que un sorteo sea auditable y reproducible.</span>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="kpis" style="margin-bottom:1.1rem">
+      <div class="kpi"><b id="kpi-participantes">0</b><span>Participantes elegibles</span></div>
+      <div class="kpi"><b id="kpi-boletas">0</b><span>Boletas en tómbola</span></div>
+      <div class="kpi"><b id="kpi-sorteos">0</b><span>Sorteos ejecutados</span></div>
+      <div class="kpi"><b id="kpi-ganadores">0</b><span>Ganadores del periodo</span></div>
+    </div>
+
+    <div class="grid-lateral">
+      <div class="panel">
+        <h2 class="panel__titulo">Configuración del sorteo</h2>
+        <div class="grid-2">
+          <label class="campo">
+            <span>Campaña</span>
+            <select id="campana">
+              <option>Ahorro Premiado</option>
+              <option>Tarjeta Feliz</option>
+              <option>Remesa Ganadora</option>
+            </select>
+          </label>
+          <label class="campo">
+            <span>Premio del día</span>
+            <input id="premio" type="text" value="Q 5,000.00">
+          </label>
+        </div>
+        <div class="grid-2">
+          <label class="campo">
+            <span>Semilla de auditoría</span>
+            <input id="semilla" type="number" value="20260821">
+          </label>
+          <label class="campo">
+            <span>Regla de elegibilidad</span>
+            <select id="regla">
+              <option value="todos">Todos los participantes</option>
+              <option value="sin-ganadores" selected>Excluir ganadores previos</option>
+              <option value="min-boletas">Solo con 3 o más boletas</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="panel" style="background:var(--bg-soft); text-align:center; padding:1.6rem 1rem">
+          <p class="muted" style="margin:0 0 .3rem; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase">Ganador</p>
+          <p id="ruleta" class="mono" style="font-size:clamp(1.1rem,3.4vw,1.7rem); font-weight:800; margin:0; min-height:2.2rem">— — —</p>
+          <p id="ganador-detalle" class="muted" style="margin:.4rem 0 0; font-size:.88rem">Configura la campaña y ejecuta el sorteo.</p>
+        </div>
+
+        <div class="fila" style="margin-top:1rem">
+          <button class="btn btn--primario" type="button" id="ejecutar">🎲 Ejecutar sorteo</button>
+          <button class="btn btn--sm" type="button" id="semilla-hoy">📅 Semilla del día</button>
+          <button class="btn btn--sm" type="button" id="reiniciar">🧹 Reiniciar demo</button>
+        </div>
+        <p class="muted" style="font-size:.84rem; margin-top:.9rem">
+          La selección usa un generador pseudoaleatorio con semilla: al registrar la semilla junto al
+          resultado, auditoría puede repetir el sorteo y obtener exactamente el mismo ganador.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel__titulo">Tómbola <span class="contador" id="conteo-tombola">0 elegibles</span></h2>
+        <div class="tabla-wrap" style="max-height:320px; overflow-y:auto">
+          <table>
+            <thead><tr><th>Participante</th><th>Cuenta</th><th class="num">Boletas</th><th>Estado</th></tr></thead>
+            <tbody id="tabla-participantes"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.1rem">
+      <h2 class="panel__titulo">
+        Historial de sorteos
+        <span class="contador"><button class="btn btn--sm" type="button" id="exportar">⬇ Exportar acta (CSV)</button></span>
+      </h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead>
+            <tr><th>Acta</th><th>Fecha y hora</th><th>Campaña</th><th>Premio</th><th>Ganador</th><th class="num">Semilla</th><th>Verificación</th></tr>
+          </thead>
+          <tbody id="tabla-historial"></tbody>
+        </table>
+      </div>
+      <p class="vacio" id="historial-vacio">Todavía no se ha ejecutado ningún sorteo.</p>
+    </div>
+
+  </section>
+</main>
+
+<footer class="pie-demo">
+  <div class="contenedor">
+    <strong>Qué demuestra este proyecto</strong>
+    <ul class="muted">
+        <li>Aleatoriedad reproducible: misma semilla, mismo ganador, verificable por auditoría.</li>
+        <li>Reglas de elegibilidad y exclusión de ganadores previos de la campaña.</li>
+        <li>Historial persistente de sorteos con fecha, semilla y ganador.</li>
+        <li>Ejecución sin intervención manual del operador.</li>
+    </ul>
+    <a class="btn btn--sm" href="../../index.html">&#8592; Volver al portafolio</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/demo-utils.js"></script>
+<script src="sorteos.js"></script>
+</body>
+</html>

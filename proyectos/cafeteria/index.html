@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cafetería institucional — Demo · César Díaz</title>
+<meta name="description" content="Reconstrucción del ecosistema que automatiza la cafetería del banco: el proveedor publica el menú del día, el colaborador ordena desde el portal y paga con cobro electrónico o descuento por planilla, y RRHH concilia el consumo del periodo.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/demo.css">
+<script>(function(){try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+</head>
+<body>
+
+<header class="demo-nav">
+  <div class="contenedor demo-nav__inner">
+    <a class="demo-nav__volver" href="../../index.html">&#8592; Volver al portafolio</a>
+    <div class="demo-nav__titulo">Cafetería institucional<small>Banco Internacional</small></div>
+    <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
+      <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
+      <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="demo-main">
+  <section class="demo-hero contenedor">
+    <h1>☕ Cafetería institucional</h1>
+    <p>Reconstrucción del ecosistema que automatiza la cafetería del banco: el proveedor publica el menú del día, el colaborador ordena desde el portal y paga con cobro electrónico o descuento por planilla, y RRHH concilia el consumo del periodo.</p>
+    <div class="demo-hero__stack">
+        <span class="chip chip--accent">C# .NET</span>
+        <span class="chip chip--accent">ASP.NET MVC</span>
+        <span class="chip chip--accent">SQL Server</span>
+        <span class="chip chip--accent">REST API</span>
+    </div>
+    <div class="aviso">
+      <span aria-hidden="true">⚠️</span>
+      <span><b>Demo con datos ficticios.</b> Los colaboradores, saldos y precios son inventados; la lógica de órdenes, cobro y conciliación es la misma que implementé en producción.</span>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="tabs" role="group" aria-label="Módulos del sistema">
+      <button class="filtro" type="button" data-vista="portal" aria-pressed="true">👤 Portal del colaborador</button>
+      <button class="filtro" type="button" data-vista="proveedor" aria-pressed="false">🧑‍🍳 App del proveedor</button>
+      <button class="filtro" type="button" data-vista="rrhh" aria-pressed="false">🏢 Panel de RRHH</button>
+    </div>
+
+    <!-- ------------------------------ PORTAL ------------------------------ -->
+    <div data-panel="portal">
+      <div class="grid-lateral">
+        <div class="panel">
+          <h2 class="panel__titulo">Menú del día <span class="contador" id="fecha-hoy"></span></h2>
+          <div class="menu-grid" id="menu"></div>
+        </div>
+
+        <aside class="panel">
+          <h2 class="panel__titulo">Tu orden <span class="contador" id="conteo-carrito">0 ítems</span></h2>
+          <label class="campo">
+            <span>Colaborador</span>
+            <select id="colaborador"></select>
+          </label>
+          <p class="muted mono" id="saldo-info" style="font-size:.85rem"></p>
+          <ul class="lista" id="carrito"></ul>
+          <p class="vacio" id="carrito-vacio">Selecciona productos del menú para armar tu orden.</p>
+          <div class="sep"></div>
+          <div class="fila" style="justify-content:space-between">
+            <b>Total</b><b class="mono" id="total">Q 0.00</b>
+          </div>
+          <label class="campo" style="margin-top:.8rem">
+            <span>Forma de cobro</span>
+            <select id="pago">
+              <option value="electronico">Cobro electrónico (saldo de tarjeta)</option>
+              <option value="planilla">Descuento por planilla</option>
+            </select>
+          </label>
+          <button class="btn btn--primario" type="button" id="confirmar" style="width:100%; justify-content:center">Confirmar orden</button>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ----------------------------- PROVEEDOR ---------------------------- -->
+    <div data-panel="proveedor" hidden>
+      <div class="panel">
+        <h2 class="panel__titulo">Órdenes recibidas <span class="contador" id="conteo-ordenes">0</span></h2>
+        <ul class="lista" id="ordenes"></ul>
+        <p class="vacio" id="ordenes-vacio">Aún no hay órdenes. Crea una desde el portal del colaborador.</p>
+      </div>
+    </div>
+
+    <!-- -------------------------------- RRHH ------------------------------ -->
+    <div data-panel="rrhh" hidden>
+      <div class="kpis" style="margin-bottom:1.1rem">
+        <div class="kpi"><b id="kpi-ordenes">0</b><span>Órdenes del periodo</span></div>
+        <div class="kpi"><b id="kpi-total">Q 0.00</b><span>Consumo total</span></div>
+        <div class="kpi"><b id="kpi-ticket">Q 0.00</b><span>Ticket promedio</span></div>
+        <div class="kpi"><b id="kpi-planilla">Q 0.00</b><span>A descontar en planilla</span></div>
+      </div>
+      <div class="panel">
+        <h2 class="panel__titulo">
+          Consumo por colaborador
+          <span class="contador">
+            <button class="btn btn--sm" type="button" id="exportar">⬇ Exportar planilla (CSV)</button>
+            <button class="btn btn--sm" type="button" id="cerrar-periodo">🔒 Cerrar periodo</button>
+          </span>
+        </h2>
+        <div class="tabla-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Colaborador</th><th>Departamento</th><th class="num">Órdenes</th>
+                <th class="num">Electrónico</th><th class="num">Planilla</th><th class="num">Total</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-rrhh"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer class="pie-demo">
+  <div class="contenedor">
+    <strong>Qué demuestra este proyecto</strong>
+    <ul class="muted">
+        <li>Flujo completo de negocio: catálogo, orden, cobro y conciliación, no una pantalla aislada.</li>
+        <li>Dos roles con reglas distintas (colaborador y RRHH) sobre el mismo modelo de datos.</li>
+        <li>Cobro electrónico con validación de saldo y descuento por planilla con corte mensual.</li>
+        <li>Máquina de estados de la orden con trazabilidad por colaborador.</li>
+    </ul>
+    <a class="btn btn--sm" href="../../index.html">&#8592; Volver al portafolio</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/demo-utils.js"></script>
+<script src="cafeteria.js"></script>
+</body>
+</html>

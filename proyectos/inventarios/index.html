@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traslados de inventario inter-sucursales — Demo · César Díaz</title>
+<meta name="description" content="Aplicación de traslados entre sucursales: valida existencias antes de autorizar el envío, mantiene la mercadería en tránsito hasta que la sucursal destino confirma la recepción y registra cada movimiento en el kardex.">
+<meta name="theme-color" content="#0b1220">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/css/base.css">
+<link rel="stylesheet" href="../../assets/css/demo.css">
+<script>(function(){try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+</head>
+<body>
+
+<header class="demo-nav">
+  <div class="contenedor demo-nav__inner">
+    <a class="demo-nav__volver" href="../../index.html">&#8592; Volver al portafolio</a>
+    <div class="demo-nav__titulo">Traslados de inventario inter-sucursales<small>Grupo Unicomer</small></div>
+    <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
+      <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
+      <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="demo-main">
+  <section class="demo-hero contenedor">
+    <h1>📦 Traslados de inventario inter-sucursales</h1>
+    <p>Aplicación de traslados entre sucursales: valida existencias antes de autorizar el envío, mantiene la mercadería en tránsito hasta que la sucursal destino confirma la recepción y registra cada movimiento en el kardex.</p>
+    <div class="demo-hero__stack">
+        <span class="chip chip--accent">SQL Server</span>
+        <span class="chip chip--accent">T-SQL</span>
+        <span class="chip chip--accent">C# .NET</span>
+    </div>
+    <div class="aviso">
+      <span aria-hidden="true">⚠️</span>
+      <span><b>Demo con datos ficticios.</b> Sucursales, productos y existencias son ficticios; las reglas de validación y el ciclo del traslado son las del sistema real.</span>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="kpis" style="margin-bottom:1.1rem">
+      <div class="kpi"><b id="kpi-total">0</b><span>Unidades en la red</span></div>
+      <div class="kpi"><b id="kpi-transito">0</b><span>Unidades en tránsito</span></div>
+      <div class="kpi"><b id="kpi-traslados">0</b><span>Traslados abiertos</span></div>
+      <div class="kpi"><b id="kpi-minimos">0</b><span>Alertas de stock mínimo</span></div>
+    </div>
+
+    <div class="grid-lateral">
+      <div class="panel">
+        <h2 class="panel__titulo">Nuevo traslado inter-sucursal</h2>
+        <div class="grid-2">
+          <label class="campo">
+            <span>Sucursal origen</span>
+            <select id="origen"></select>
+          </label>
+          <label class="campo">
+            <span>Sucursal destino</span>
+            <select id="destino"></select>
+          </label>
+        </div>
+        <label class="campo">
+          <span>Producto</span>
+          <select id="producto"></select>
+        </label>
+        <div class="grid-2">
+          <label class="campo">
+            <span>Cantidad</span>
+            <input id="cantidad" type="number" min="1" value="5">
+          </label>
+          <label class="campo">
+            <span>Disponible en origen</span>
+            <input id="disponible" type="text" value="0" readonly>
+          </label>
+        </div>
+        <div class="fila">
+          <button class="btn btn--primario" type="button" id="enviar">🚚 Enviar traslado</button>
+          <button class="btn btn--sm" type="button" id="reiniciar">🧹 Restablecer inventario</button>
+        </div>
+        <p class="muted" style="font-size:.84rem; margin-top:.9rem">
+          Al enviar, las unidades salen del origen pero <b>no ingresan al destino</b> hasta que la sucursal
+          receptora confirma. Mientras tanto quedan en tránsito, y el total de la red no cambia.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel__titulo">Traslados <span class="contador" id="conteo-traslados">0</span></h2>
+        <ul class="lista" id="traslados" style="max-height:340px; overflow-y:auto"></ul>
+        <p class="vacio" id="traslados-vacio">No hay traslados registrados.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.1rem">
+      <h2 class="panel__titulo">Existencias por sucursal</h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr id="cabecera-existencias"></tr></thead>
+          <tbody id="tabla-existencias"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:1.1rem">
+      <h2 class="panel__titulo">
+        Kardex de movimientos
+        <span class="contador"><button class="btn btn--sm" type="button" id="exportar">⬇ Exportar kardex (CSV)</button></span>
+      </h2>
+      <div class="tabla-wrap" style="max-height:320px; overflow-y:auto">
+        <table>
+          <thead><tr><th>Documento</th><th>Fecha</th><th>Producto</th><th>Sucursal</th><th>Movimiento</th><th class="num">Cantidad</th><th class="num">Saldo</th></tr></thead>
+          <tbody id="tabla-kardex"></tbody>
+        </table>
+      </div>
+      <p class="vacio" id="kardex-vacio">Sin movimientos todavía.</p>
+    </div>
+
+  </section>
+</main>
+
+<footer class="pie-demo">
+  <div class="contenedor">
+    <strong>Qué demuestra este proyecto</strong>
+    <ul class="muted">
+        <li>Validación de existencias que impide despachar más de lo disponible.</li>
+        <li>Estado en tránsito: el stock sale del origen pero no entra al destino hasta confirmarse.</li>
+        <li>Kardex con el detalle de cada movimiento por producto y sucursal.</li>
+        <li>Cuadre del inventario total, que nunca cambia por un traslado interno.</li>
+    </ul>
+    <a class="btn btn--sm" href="../../index.html">&#8592; Volver al portafolio</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/demo-utils.js"></script>
+<script src="inventarios.js"></script>
+</body>
+</html>
