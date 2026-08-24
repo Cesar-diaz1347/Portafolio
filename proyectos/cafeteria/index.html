@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cafetería institucional — Demo · César Díaz</title>
-<meta name="description" content="Reconstrucción del ecosistema que automatiza la cafetería del banco: el proveedor publica el menú del día, el colaborador ordena desde el portal y paga con cobro electrónico o descuento por planilla, y RRHH concilia el consumo del periodo.">
+<meta name="description" content="Reconstrucción del ecosistema que automatiza la cafetería del banco: el colaborador reserva su almuerzo eligiendo sucursal, fecha y menú del día, la cafetería despacha las reservas recibidas, y RRHH concilia el consumo del periodo entre cobro electrónico y descuento por planilla.">
 <meta name="theme-color" content="#0b1220">
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../../assets/css/base.css">
@@ -27,7 +27,7 @@
 <main class="demo-main">
   <section class="demo-hero contenedor">
     <h1>☕ Cafetería institucional</h1>
-    <p>Reconstrucción del ecosistema que automatiza la cafetería del banco: el proveedor publica el menú del día, el colaborador ordena desde el portal y paga con cobro electrónico o descuento por planilla, y RRHH concilia el consumo del periodo.</p>
+    <p>Reconstrucción del ecosistema que automatiza la cafetería del banco: el colaborador reserva su almuerzo eligiendo sucursal, fecha y menú del día, la cafetería despacha las reservas recibidas, y RRHH concilia el consumo del periodo entre cobro electrónico y descuento por planilla.</p>
     <div class="demo-hero__stack">
         <span class="chip chip--accent">C# .NET</span>
         <span class="chip chip--accent">ASP.NET MVC</span>
@@ -36,87 +36,166 @@
     </div>
     <div class="aviso">
       <span aria-hidden="true">⚠️</span>
-      <span><b>Demo con datos ficticios.</b> Los colaboradores, saldos y precios son inventados; la lógica de órdenes, cobro y conciliación es la misma que implementé en producción.</span>
+      <span><b>Demo con datos ficticios.</b> Los colaboradores, saldos y precios son inventados; el portal de reservas, la máquina de estados y la conciliación reproducen el sistema que implementé en producción.</span>
     </div>
   </section>
 
   <section class="contenedor">
-    <div class="tabs" role="group" aria-label="Módulos del sistema">
-      <button class="filtro" type="button" data-vista="portal" aria-pressed="true">👤 Portal del colaborador</button>
-      <button class="filtro" type="button" data-vista="proveedor" aria-pressed="false">🧑‍🍳 App del proveedor</button>
-      <button class="filtro" type="button" data-vista="rrhh" aria-pressed="false">🏢 Panel de RRHH</button>
-    </div>
+    <div class="app">
+      <aside class="app__side">
+        <div class="app__marca"><span aria-hidden="true">☕</span> Cafetería BI</div>
+        <nav class="app__nav" aria-label="Módulos del sistema">
+          <button type="button" data-vista="inicio" aria-current="true"><span aria-hidden="true">🏠</span> Inicio</button>
+          <button type="button" data-vista="misReservas" aria-current="false"><span aria-hidden="true">📅</span> Mis reservas</button>
+          <button type="button" data-vista="reservar" aria-current="false"><span aria-hidden="true">🍽️</span> Reservar almuerzo</button>
+          <button type="button" data-vista="proveedor" aria-current="false"><span aria-hidden="true">🧑‍🍳</span> App del proveedor</button>
+          <button type="button" data-vista="rrhh" aria-current="false"><span aria-hidden="true">🏢</span> Panel de RRHH</button>
+        </nav>
+        <p class="app__limite">Reservas y cancelaciones <b>hasta jueves 5:00 p.m.</b></p>
+      </aside>
 
-    <!-- ------------------------------ PORTAL ------------------------------ -->
-    <div data-panel="portal">
-      <div class="grid-lateral">
-        <div class="panel">
-          <h2 class="panel__titulo">Menú del día <span class="contador" id="fecha-hoy"></span></h2>
-          <div class="menu-grid" id="menu"></div>
-        </div>
-
-        <aside class="panel">
-          <h2 class="panel__titulo">Tu orden <span class="contador" id="conteo-carrito">0 ítems</span></h2>
-          <label class="campo">
-            <span>Colaborador</span>
-            <select id="colaborador"></select>
-          </label>
-          <p class="muted mono" id="saldo-info" style="font-size:.85rem"></p>
-          <ul class="lista" id="carrito"></ul>
-          <p class="vacio" id="carrito-vacio">Selecciona productos del menú para armar tu orden.</p>
-          <div class="sep"></div>
-          <div class="fila" style="justify-content:space-between">
-            <b>Total</b><b class="mono" id="total">Q 0.00</b>
+      <div class="app__cuerpo">
+        <header class="app__head">
+          <span class="app__campana" title="3 notificaciones sin leer"><span aria-hidden="true">🔔</span><b>3</b></span>
+          <div class="app__usuario">
+            <button type="button" id="usuario-btn" aria-expanded="false" aria-haspopup="true">
+              <span class="app__avatar" id="usuario-iniciales">MG</span>
+              <span id="usuario-nombre">María García</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div class="app__menu" id="usuario-menu" role="menu" aria-label="Cambiar de colaborador" hidden></div>
           </div>
-          <label class="campo" style="margin-top:.8rem">
-            <span>Forma de cobro</span>
-            <select id="pago">
-              <option value="electronico">Cobro electrónico (saldo de tarjeta)</option>
-              <option value="planilla">Descuento por planilla</option>
-            </select>
-          </label>
-          <button class="btn btn--primario" type="button" id="confirmar" style="width:100%; justify-content:center">Confirmar orden</button>
-        </aside>
-      </div>
-    </div>
+        </header>
 
-    <!-- ----------------------------- PROVEEDOR ---------------------------- -->
-    <div data-panel="proveedor" hidden>
-      <div class="panel">
-        <h2 class="panel__titulo">Órdenes recibidas <span class="contador" id="conteo-ordenes">0</span></h2>
-        <ul class="lista" id="ordenes"></ul>
-        <p class="vacio" id="ordenes-vacio">Aún no hay órdenes. Crea una desde el portal del colaborador.</p>
-      </div>
-    </div>
+        <!-- ------------------------------ INICIO ------------------------------ -->
+        <div class="app__vista" data-panel="inicio">
+          <div class="hero-app">
+            <b id="saludo">¡Hola!</b>
+            <span>Gestiona tus almuerzos de la semana de forma rápida y sencilla.</span>
+          </div>
+          <p class="aviso-linea">
+            <span aria-hidden="true">🔔</span>
+            Reservas y cancelaciones disponibles hasta <b>jueves 5:00 p.m.</b>
+          </p>
 
-    <!-- -------------------------------- RRHH ------------------------------ -->
-    <div data-panel="rrhh" hidden>
-      <div class="kpis" style="margin-bottom:1.1rem">
-        <div class="kpi"><b id="kpi-ordenes">0</b><span>Órdenes del periodo</span></div>
-        <div class="kpi"><b id="kpi-total">Q 0.00</b><span>Consumo total</span></div>
-        <div class="kpi"><b id="kpi-ticket">Q 0.00</b><span>Ticket promedio</span></div>
-        <div class="kpi"><b id="kpi-planilla">Q 0.00</b><span>A descontar en planilla</span></div>
-      </div>
-      <div class="panel">
-        <h2 class="panel__titulo">
-          Consumo por colaborador
-          <span class="contador">
-            <button class="btn btn--sm" type="button" id="exportar">⬇ Exportar planilla (CSV)</button>
-            <button class="btn btn--sm" type="button" id="cerrar-periodo">🔒 Cerrar periodo</button>
-          </span>
-        </h2>
-        <div class="tabla-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Colaborador</th><th>Departamento</th><th class="num">Órdenes</th>
-                <th class="num">Electrónico</th><th class="num">Planilla</th><th class="num">Total</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-rrhh"></tbody>
-          </table>
+          <div class="acciones">
+            <div class="accion">
+              <h3><span aria-hidden="true">🍽️</span> Reservar almuerzo</h3>
+              <p>Realiza tu reserva de forma rápida y sencilla.</p>
+              <div class="accion__pie">
+                <div><span>Límite para reservar:</span><b>Jueves a las 5:00 p.m.</b></div>
+                <button class="btn btn--primario btn--sm" type="button" data-vista="reservar">Reservar ahora →</button>
+              </div>
+            </div>
+            <div class="accion">
+              <h3><span aria-hidden="true">📅</span> Ver reservas</h3>
+              <p>Consulta, modifica o cancela tus reservas.</p>
+              <div class="accion__pie">
+                <div><span>Límite para cancelar:</span><b>Jueves a las 5:00 p.m.</b></div>
+                <button class="btn btn--sm" type="button" data-vista="misReservas">Ver mis reservas →</button>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="panel__titulo">Mis reservas de la semana <span class="contador" id="semana-rango"></span></h2>
+          <div class="semana" id="semana"></div>
         </div>
+
+        <!-- --------------------------- MIS RESERVAS --------------------------- -->
+        <div class="app__vista" data-panel="misReservas" hidden>
+          <h2 class="panel__titulo">Mis reservas <span class="contador">Consulta, modifica o cancela tus reservaciones</span></h2>
+          <div class="grid-2">
+            <div class="panel">
+              <div class="cal__nav">
+                <button type="button" data-mes="-1" aria-label="Mes anterior">‹</button>
+                <b id="cal-titulo"></b>
+                <button type="button" data-mes="1" aria-label="Mes siguiente">›</button>
+              </div>
+              <div class="cal__dias" aria-hidden="true">
+                <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+              </div>
+              <div class="cal__celdas" id="cal-celdas"></div>
+              <div class="leyenda">
+                <span><i style="background:var(--ok)"></i> Días con reserva</span>
+                <span><i style="background:var(--accent)"></i> Día seleccionado</span>
+                <span><i style="border:1px dashed var(--accent)"></i> Hoy</span>
+              </div>
+              <div class="aviso" style="margin-top:1rem">
+                <span aria-hidden="true">📅</span>
+                <span><b>Fecha límite de gestión.</b> Las reservas pueden modificarse o cancelarse hasta las 5:00 p.m. del jueves de cada semana.</span>
+              </div>
+            </div>
+            <div class="panel" id="detalle-dia"></div>
+          </div>
+        </div>
+
+        <!-- ------------------------------ RESERVAR ---------------------------- -->
+        <div class="app__vista" data-panel="reservar" hidden>
+          <div class="pasos" id="pasos"></div>
+
+          <div class="grid-2" style="margin-bottom:1.2rem">
+            <div class="campo-icono">
+              <span aria-hidden="true">📍</span>
+              <label class="campo"><span>Lugar de entrega</span><select id="sucursal"></select></label>
+            </div>
+            <div class="campo-icono">
+              <span aria-hidden="true">📅</span>
+              <label class="campo"><span>Fecha de almuerzo</span><input type="date" id="fecha"></label>
+            </div>
+          </div>
+
+          <h2 class="panel__titulo">Menús disponibles <span class="contador" id="menus-sub"></span></h2>
+          <div class="menus" id="menus"></div>
+          <div id="resumen"></div>
+          <button class="btn btn--primario" type="button" id="reservar" style="width:100%; justify-content:center" disabled>
+            🍽️ Reservar almuerzo
+          </button>
+        </div>
+
+        <!-- ----------------------------- PROVEEDOR ---------------------------- -->
+        <div class="app__vista" data-panel="proveedor" hidden>
+          <div class="panel">
+            <h2 class="panel__titulo">Reservas recibidas <span class="contador" id="conteo-reservas">0</span></h2>
+            <ul class="lista" id="reservas"></ul>
+            <p class="vacio" id="reservas-vacio">Aún no hay reservas. Crea una desde «Reservar almuerzo».</p>
+          </div>
+        </div>
+
+        <!-- -------------------------------- RRHH ------------------------------ -->
+        <div class="app__vista" data-panel="rrhh" hidden>
+          <div class="kpis" style="margin-bottom:1.1rem">
+            <div class="kpi"><b id="kpi-reservas">0</b><span>Reservas del periodo</span></div>
+            <div class="kpi"><b id="kpi-total">Q 0.00</b><span>Consumo total</span></div>
+            <div class="kpi"><b id="kpi-ticket">Q 0.00</b><span>Ticket promedio</span></div>
+            <div class="kpi"><b id="kpi-planilla">Q 0.00</b><span>A descontar en planilla</span></div>
+          </div>
+          <div class="panel">
+            <h2 class="panel__titulo">
+              Consumo por colaborador
+              <span class="contador">
+                <button class="btn btn--sm" type="button" id="exportar">⬇ Exportar planilla (CSV)</button>
+                <button class="btn btn--sm" type="button" id="cerrar-periodo">🔒 Cerrar periodo</button>
+              </span>
+            </h2>
+            <div class="tabla-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Colaborador</th><th>Departamento</th><th class="num">Reservas</th>
+                    <th class="num">Electrónico</th><th class="num">Planilla</th><th class="num">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-rrhh"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo" hidden>
+      <div class="modal__caja" id="modal-caja"></div>
     </div>
 
   </section>
@@ -126,10 +205,11 @@
   <div class="contenedor">
     <strong>Qué demuestra este proyecto</strong>
     <ul class="muted">
-        <li>Flujo completo de negocio: catálogo, orden, cobro y conciliación, no una pantalla aislada.</li>
-        <li>Dos roles con reglas distintas (colaborador y RRHH) sobre el mismo modelo de datos.</li>
+        <li>Flujo completo de negocio: reserva, despacho, cobro y conciliación, no una pantalla aislada.</li>
+        <li>Tres roles con reglas distintas (colaborador, cafetería y RRHH) sobre el mismo modelo de datos.</li>
+        <li>Reserva por sucursal y fecha con calendario mensual y regla de una reserva por día.</li>
         <li>Cobro electrónico con validación de saldo y descuento por planilla con corte mensual.</li>
-        <li>Máquina de estados de la orden con trazabilidad por colaborador.</li>
+        <li>Máquina de estados de la reserva con trazabilidad por colaborador.</li>
     </ul>
     <a class="btn btn--sm" href="../../index.html">&#8592; Volver al portafolio</a>
   </div>
