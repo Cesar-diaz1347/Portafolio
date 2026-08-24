@@ -10,17 +10,17 @@ window.PROYECTOS = [
     icono: "☕",
     tipo: "demo",
     demo: "proyectos/cafeteria/index.html",
-    desc: "Ecosistema completo: app del proveedor, gestión de órdenes y cobros para RRHH, cobro electrónico y portal web para colaboradores.",
+    desc: "Ecosistema completo: portal de reservas de almuerzo para el colaborador, app del proveedor para despachar, y gestión de cobros y conciliación para RRHH.",
     stack: ["C# .NET", "ASP.NET MVC", "SQL Server", "REST API"],
     detalle: {
       reto: "El banco necesitaba eliminar el registro manual de consumos de la cafetería institucional y cobrar por planilla sin fricción para el colaborador.",
       hice: [
         "Lideré el diseño e implementación del sistema integral de automatización de punta a punta.",
-        "Construí la app del proveedor para publicar el menú diario y despachar órdenes.",
-        "Desarrollé la gestión de órdenes y cobros para RRHH con descuento por planilla.",
-        "Implementé el cobro electrónico y el portal web de autoservicio del colaborador."
+        "Desarrollé el portal de autoservicio donde el colaborador reserva su almuerzo por sucursal, fecha y menú.",
+        "Construí la app del proveedor para publicar el menú diario y despachar las reservas recibidas.",
+        "Implementé el cobro electrónico y la gestión de cobros para RRHH con descuento por planilla."
       ],
-      resultado: "Consumo, cobro y conciliación en un solo flujo digital, con trazabilidad por colaborador y cierre mensual automático."
+      resultado: "Reserva, consumo, cobro y conciliación en un solo flujo digital, con trazabilidad por colaborador y cierre mensual automático."
     }
   },
   {
