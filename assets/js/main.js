@@ -52,6 +52,7 @@
       el.addEventListener("click", function () { abrirModal(p); });
     }
     el.className = "proyecto";
+    el.dataset.slug = p.slug;
     el.dataset.empresa = p.empresaId;
     el.dataset.tipo = p.tipo;
     el.innerHTML = cuerpo;
@@ -91,6 +92,7 @@
       filtros.querySelectorAll(".filtro").forEach(function (f) {
         f.setAttribute("aria-pressed", String(f === btn));
       });
+      soltarCompetencia();
       aplicarFiltro(btn.dataset.filtro);
     });
   }
@@ -123,6 +125,74 @@
     modal.addEventListener("click", function (ev) {
       if (ev.target.closest("[data-modal-cerrar]") || ev.target === modal) modal.close();
     });
+  }
+
+  /* --------------------- competencias ↔ proyectos ------------------------ */
+  /* Cada chip de la matriz que tenga proyectos detrás se vuelve un filtro:
+     al pulsarlo el grid muestra solo los sistemas donde se usa esa tecnología. */
+  var chipActivo = null;
+
+  function proyectosDe(competencia) {
+    var terminos = (window.COMPETENCIAS || {})[competencia] || [];
+    if (!terminos.length) return [];
+    return proyectos.filter(function (p) {
+      return p.stack.some(function (t) { return terminos.indexOf(t) !== -1; });
+    });
+  }
+
+  function soltarCompetencia() {
+    if (!chipActivo) return;
+    chipActivo.setAttribute("aria-pressed", "false");
+    chipActivo = null;
+  }
+
+  function filtrarPorCompetencia(slugs) {
+    grid.querySelectorAll(".proyecto").forEach(function (card) {
+      card.hidden = slugs.indexOf(card.dataset.slug) === -1;
+    });
+  }
+
+  function conectarCompetencias() {
+    document.querySelectorAll(".skills__lista .chip").forEach(function (chip) {
+      var nombre = chip.textContent.trim();
+      var respaldo = proyectosDe(nombre);
+      if (!respaldo.length) return;
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = chip.className;
+      btn.dataset.competencia = nombre;
+      btn.setAttribute("aria-pressed", "false");
+      btn.title = respaldo.length + (respaldo.length === 1 ? " proyecto usa " : " proyectos usan ") + nombre;
+      btn.innerHTML = esc(nombre) + '<span class="chip__n">' + respaldo.length + "</span>";
+      chip.replaceWith(btn);
+
+      btn.addEventListener("click", function () {
+        var yaActivo = btn === chipActivo;
+        soltarCompetencia();
+        filtros.querySelectorAll(".filtro").forEach(function (f, i) {
+          f.setAttribute("aria-pressed", String(yaActivo && i === 0));
+        });
+        if (yaActivo) { aplicarFiltro("todos"); return; }
+        btn.setAttribute("aria-pressed", "true");
+        chipActivo = btn;
+        filtrarPorCompetencia(respaldo.map(function (p) { return p.slug; }));
+        document.getElementById("proyectos").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+  }
+
+  /* La métrica se toma de los datos para que no se desincronice al añadir uno. */
+  function metricaProyectos() {
+    var el = document.querySelector("[data-metrica-proyectos]");
+    if (el && proyectos.length) el.textContent = proyectos.length;
+  }
+
+  /* Ídem con las certificaciones: se cuentan las que llevan entidad emisora. */
+  function metricaCertificaciones() {
+    var el = document.querySelector("[data-metrica-certificaciones]");
+    var n = document.querySelectorAll(".educacion__emisor").length;
+    if (el && n) el.textContent = n;
   }
 
   /* ------------------------- detalles de la página ----------------------- */
@@ -159,6 +229,9 @@
   if (grid) {
     pintar();
     construirFiltros();
+    conectarCompetencias();
+    metricaProyectos();
+    metricaCertificaciones();
   }
   reveal();
   anio();

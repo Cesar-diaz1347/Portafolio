@@ -11,11 +11,11 @@ window.PROYECTOS = [
     tipo: "demo",
     demo: "proyectos/cafeteria/index.html",
     desc: "Ecosistema completo: portal de reservas de almuerzo para el colaborador, app del proveedor para despachar, y gestión de cobros y conciliación para RRHH.",
-    stack: ["C# .NET", "ASP.NET MVC", "SQL Server", "REST API"],
+    stack: ["React", "C# .NET", "ASP.NET MVC", "SQL Server", "REST API"],
     detalle: {
       reto: "El banco necesitaba eliminar el registro manual de consumos de la cafetería institucional y cobrar por planilla sin fricción para el colaborador.",
       hice: [
-        "Lideré el diseño e implementación del sistema integral de automatización de punta a punta.",
+        "Lideré el diseño e implementación end-to-end del sistema, desarrollando la solución completa en React, C# (.NET) y SQL Server.",
         "Desarrollé el portal de autoservicio donde el colaborador reserva su almuerzo por sucursal, fecha y menú.",
         "Construí la app del proveedor para publicar el menú diario y despachar las reservas recibidas.",
         "Implementé el cobro electrónico y la gestión de cobros para RRHH con descuento por planilla."
@@ -53,7 +53,7 @@ window.PROYECTOS = [
     tipo: "demo",
     demo: "proyectos/sorteos/index.html",
     desc: "Motor de sorteos de campañas: carga de participantes, selección aleatoria auditable, control de no repetidos e historial de ganadores.",
-    stack: ["C# .NET", "SQL Server", "JavaScript"],
+    stack: ["C# .NET", "SQL Server", "TypeScript"],
     detalle: {
       reto: "Las campañas del banco requerían un sorteo diario reproducible y auditable ante auditoría interna.",
       hice: [
@@ -74,7 +74,7 @@ window.PROYECTOS = [
     tipo: "demo",
     demo: "proyectos/csat/index.html",
     desc: "Captura de encuestas CSAT/NPS por canal y agente, con agregación en vivo y tablero de resultados para las jefaturas.",
-    stack: ["C# .NET", "SQL Server", "SSRS", "JavaScript"],
+    stack: ["C# .NET", "SQL Server", "SSRS", "TypeScript"],
     detalle: {
       reto: "Medir la calidad de atención por agente y canal con datos confiables y disponibles el mismo día.",
       hice: [
@@ -137,12 +137,12 @@ window.PROYECTOS = [
     tipo: "caso",
     demo: null,
     desc: "Arquitecturas de integración con proveedores externos consumiendo APIs REST asíncronas y normalizando su respuesta JSON.",
-    stack: ["REST API", "JSON", "JWT", "C# .NET"],
+    stack: ["REST API", "JSON", "JWT", "C# .NET", "LINQ"],
     detalle: {
       reto: "Cada proveedor exponía contratos distintos y tiempos de respuesta variables.",
       hice: [
         "Diseñé la capa de integración asíncrona con reintentos y manejo de time-outs.",
-        "Normalicé respuestas JSON heterogéneas hacia el modelo relacional del banco.",
+        "Normalicé con LINQ respuestas JSON heterogéneas hacia el modelo relacional del banco.",
         "Aseguré el consumo con autenticación por token y bitácora de cada llamada."
       ],
       resultado: "Integraciones estables con terceros y errores de proveedor aislados del core bancario."
@@ -177,13 +177,14 @@ window.PROYECTOS = [
     tipo: "caso",
     demo: null,
     desc: "Solución analítica regional para seguir el desempeño de las categorías comerciales a nivel Centroamérica.",
-    stack: ["SQL Server", "SSRS", "Python (Data)", "ETL"],
+    stack: ["SQL Server", "SSRS", "Python (Data)", "ETL", "Angular"],
     detalle: {
       reto: "La región no tenía una vista única del comportamiento por categoría comercial.",
       hice: [
         "Desarrollé la solución analítica para el monitoreo de categorías a nivel Centroamérica.",
         "Consolidé las fuentes de datos por país en un modelo comparable.",
-        "Publiqué los indicadores para el seguimiento comercial periódico."
+        "Publiqué los indicadores para el seguimiento comercial periódico.",
+        "Probé en Angular las interfaces de consulta de la solución analítica."
       ],
       resultado: "Visibilidad regional del desempeño por categoría en un solo tablero."
     }
@@ -217,13 +218,14 @@ window.PROYECTOS = [
     tipo: "caso",
     demo: null,
     desc: "Aplicación para analizar la productividad por categoría operativa en la operación de Guatemala.",
-    stack: ["C# .NET", "SQL Server", "Reporting"],
+    stack: ["C# .NET", "SQL Server", "Reporting", "Angular"],
     detalle: {
       reto: "No existía una medida homogénea de productividad entre categorías operativas.",
       hice: [
         "Creé la aplicación de análisis de productividad por categorías operativas en Guatemala.",
         "Definí los indicadores y su cálculo sobre los datos de operación.",
-        "Automaticé la generación periódica del análisis."
+        "Automaticé la generación periódica del análisis.",
+        "Probé en Angular las interfaces de consulta del análisis."
       ],
       resultado: "Comparación objetiva de productividad entre categorías operativas."
     }
@@ -257,7 +259,7 @@ window.PROYECTOS = [
     tipo: "caso",
     demo: null,
     desc: "Plataforma para la asignación académica y la gestión de tareas de estudiantes, con desarrollo y soporte continuo.",
-    stack: ["JavaScript", "SQL Server", "Web"],
+    stack: ["TypeScript", "SQL Server", "Web"],
     detalle: {
       reto: "La asignación de cursos y tareas se llevaba de forma dispersa entre docentes y estudiantes.",
       hice: [
@@ -269,3 +271,43 @@ window.PROYECTOS = [
     }
   }
 ];
+
+/* Con qué nombre aparece cada competencia de la matriz dentro del stack de los
+   proyectos. Sirve para que un chip de la sección "Stack" filtre los sistemas
+   que la respaldan. Lista vacía = el CV la declara pero todavía no hay ningún
+   proyecto publicado que la demuestre. */
+window.COMPETENCIAS = {
+  "C#":                                  ["C# .NET"],
+  ".NET 8 / .NET Core / .NET Framework": ["C# .NET"],
+  "ASP.NET MVC":                         ["ASP.NET MVC"],
+  "WinForms":                            ["WinForms"],
+  "T-SQL":                               ["T-SQL"],
+  "Stored Procedures":                   ["Stored Procedures"],
+  "Triggers":                            [],
+  "LINQ":                                ["LINQ"],
+  "React.js":                            ["React"],
+  "Angular":                             ["Angular"],
+  "TypeScript":                          ["TypeScript"],
+  "JavaScript":                          ["JavaScript"],
+  "HTML5":                               ["Web"],
+  "CSS3":                                ["Web"],
+  "REST API":                            ["REST API"],
+  "JSON":                                ["JSON"],
+  "JWT":                                 ["JWT"],
+  "SQL Server":                          ["SQL Server"],
+  "SSIS":                                ["SSIS"],
+  "SSRS":                                ["SSRS"],
+  "ETL":                                 ["ETL"],
+  "ELT":                                 [],
+  "Data Warehouse":                      ["Data Warehouse"],
+  "Datamarts":                           ["Data Warehouse"],
+  "Database Design":                     [],
+  "Data Cleaning":                       [],
+  "PySpark":                             [],
+  "Python":                              ["Python (Data)"],
+  "Azure DevOps":                        ["Azure DevOps"],
+  "Git":                                 [],
+  "GitHub Actions":                      [],
+  "CI/CD":                               [],
+  "AWS (Machine Learning)":              []
+};
