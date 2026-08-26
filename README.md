@@ -8,8 +8,8 @@ sin dependencias externas), listo para publicarse en **GitHub Pages**.
 ## Qué incluye
 
 - **Segmento 1 · Sobre mí** — perfil profesional, métricas, línea de tiempo de experiencia
-  (Banco Internacional, Grupo Unicomer, Colgate-Palmolive, Autopan, Itics), matriz de competencias
-  técnicas y certificaciones.
+  (Banco Internacional, Grupo Unicomer, Colgate-Palmolive, Autopan, Itics), competencias técnicas
+  agrupadas en las cuatro áreas del CV y credenciales con su entidad emisora.
 - **Segmento 2 · Proyectos** — 13 proyectos filtrables por empresa. Seis de ellos abren en una
   **pestaña nueva** una demo interactiva; el resto se detalla en una ficha de caso de estudio.
 - **Modo claro / oscuro** con botón en la barra superior. La preferencia se guarda en `localStorage`
@@ -21,7 +21,7 @@ sin dependencias externas), listo para publicarse en **GitHub Pages**.
 
 | Demo | Proyecto | Qué se puede probar |
 |---|---|---|
-| `proyectos/cafeteria/` | Cafetería institucional — Banco Internacional | Ordenar del menú, cobro electrónico con validación de saldo, descuento por planilla, despacho del proveedor y conciliación de RRHH |
+| `proyectos/cafeteria/` | Cafetería institucional — Banco Internacional | Reservar almuerzo por sucursal, fecha y menú, cobro electrónico con validación de saldo, descuento por planilla, despacho del proveedor y conciliación de RRHH |
 | `proyectos/embozado/` | Embozado de tarjetas — Banco Internacional | Validación Luhn y de BIN, rechazo con motivo, generación de lote y exportación para la embozadora |
 | `proyectos/sorteos/` | Sorteos diarios — Banco Internacional | Sorteo ponderado por boletas con semilla auditable y verificación del acta |
 | `proyectos/csat/` | Calificación de servicio — Banco Internacional | Encuesta CSAT/NPS, indicadores en vivo y desempeño por agente y canal |
@@ -72,5 +72,5 @@ con Jekyll.
 ## Contacto
 
 - ✉️ cesar.diaz1347@gmail.com
-- 📱 +502 4290 9263
+- 📱 +502 4290-9263
 - 💻 [github.com/Cesar-diaz1347](https://github.com/Cesar-diaz1347)
