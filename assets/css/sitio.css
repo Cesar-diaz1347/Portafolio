@@ -1,0 +1,98 @@
+/* ==========================================================================
+   sitio.css — cascarón común de la portada y de las páginas de sección
+   (fondo, cabecera, pie y tipografía de sección). Depende de base.css.
+   ========================================================================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(58rem 30rem at 78% -8%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+    radial-gradient(46rem 26rem at 4% 8%, color-mix(in srgb, var(--accent-2) 13%, transparent), transparent 60%);
+  pointer-events: none;
+}
+
+/* ---------------------------------- cabecera ----------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav__inner { display: flex; align-items: center; gap: 1rem; min-height: 68px; }
+.nav__marca {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-decoration: none;
+  color: var(--text);
+  margin-right: auto;
+}
+.nav__monograma {
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--accent-contrast);
+  font-size: .95rem;
+  font-weight: 800;
+}
+.nav__marca small { display: block; font-weight: 500; font-size: .72rem; color: var(--muted); letter-spacing: 0; }
+
+/* Enlace de regreso que llevan las páginas de sección. */
+.nav__volver {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .18s ease, border-color .18s ease;
+}
+.nav__volver:hover { color: var(--text); border-color: var(--accent); }
+@media (max-width: 560px) { .nav__volver span { display: none; } }
+
+/* --------------------------------- secciones ----------------------------- */
+.seccion { padding: clamp(2rem, 5vw, 3.4rem) 0; }
+.seccion__num { font-family: var(--mono); color: var(--accent); font-size: .85rem; font-weight: 700; letter-spacing: .1em; }
+.seccion h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); margin-top: .35rem; }
+.seccion__sub { color: var(--muted); margin: 0; }
+
+/* ---------------------------------- pie ---------------------------------- */
+.footer { border-top: 1px solid var(--border); padding: 1.6rem 0; color: var(--muted); font-size: .87rem; }
+.footer__inner { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; align-items: center; justify-content: space-between; }
+
+/* ------------------------------ ilustraciones ---------------------------- */
+/* Las cinco figuras se dibujan con dos trazos: el acento y el color apagado.
+   En la portada se reutilizan con <use>, que clona la figura dentro de un
+   shadow tree: allí los selectores del documento no llegan, así que todo lo
+   común se define aquí como propiedades heredables (fill, stroke, stroke-width)
+   y las variantes van en el atributo style de cada figura usando estas
+   variables, que sí se heredan.
+   `--arte-hueco` es el color del fondo sobre el que se apoya la figura, y sirve
+   para recortar una parte cuando se encima con otra (el reloj del maletín). */
+.arte {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  --tinte: color-mix(in srgb, var(--accent) 14%, transparent);
+  --tenue: color-mix(in srgb, var(--muted) 12%, transparent);
+}

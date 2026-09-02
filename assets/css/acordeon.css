@@ -1,0 +1,298 @@
+/* ==========================================================================
+   acordeon.css — portada: presentación y acordeón de secciones
+   Estrategia mobile-first: por defecto las franjas se apilan en vertical y se
+   abren con un toque (clase .abierta, la pone acordeon.js). A partir de 861px
+   y solo si el puntero puede hacer hover, se convierten en el acordeón
+   horizontal que se expande al pasar el mouse.
+   ========================================================================== */
+
+/* ----------------------------------- hero -------------------------------- */
+.hero { padding: clamp(2rem, 5vw, 3.4rem) 0 1.4rem; }
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.55fr .9fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: .82rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: .9rem;
+}
+.hero__eyebrow::before {
+  content: "";
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 25%, transparent);
+}
+.hero h1 { font-size: clamp(2rem, 4.8vw, 3.1rem); margin-bottom: .5rem; }
+.hero__rol { font-size: clamp(1rem, 2.2vw, 1.18rem); color: var(--accent); font-weight: 600; margin-bottom: .9rem; }
+.hero__texto { color: var(--muted); font-size: 1rem; max-width: 60ch; }
+.hero__acciones { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.3rem; }
+.hero__foto { justify-self: center; position: relative; margin: 0; }
+.hero__foto img {
+  width: clamp(190px, 24vw, 260px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: var(--shadow);
+}
+.hero__foto::after {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--accent) 40%, transparent);
+  animation: girar 22s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+@media (max-width: 860px) {
+  .hero__grid { grid-template-columns: 1fr; text-align: center; }
+  .hero__texto { margin-inline: auto; }
+  .hero__acciones { justify-content: center; }
+  .hero__foto { order: -1; }
+}
+
+/* --------------------------------- métricas ------------------------------ */
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 0;
+}
+.metrica { text-align: center; padding: 1rem .8rem; }
+.metrica b {
+  display: block;
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.metrica span { color: var(--muted); font-size: .87rem; }
+
+/* -------------------------- cabecera del acordeón ------------------------ */
+.explorar { padding-bottom: clamp(2.4rem, 6vw, 4rem); }
+.explorar__cabecera { max-width: 66ch; margin-bottom: 1.4rem; }
+.explorar__pista {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-top: .7rem;
+  color: var(--muted);
+  font-size: .87rem;
+}
+.explorar__pista svg { width: 16px; height: 16px; fill: var(--accent); flex: none; }
+
+/* ================================ ACORDEÓN =============================== */
+.acordeon { display: flex; flex-direction: column; gap: .6rem; }
+
+.franja {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 76px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: inherit;
+  text-decoration: none;
+  --arte-hueco: var(--surface);
+  transition: height .5s cubic-bezier(.22,.61,.36,1), border-color .3s ease, box-shadow .3s ease;
+}
+.franja::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s ease;
+  z-index: 3;
+}
+/* Alto suficiente para la franja más larga (Proyectos y Certificaciones piden
+   ~352px con la ilustración reducida); el resto queda con aire de sobra. */
+.franja.abierta { height: 400px; }
+.franja.abierta,
+.franja:focus-visible { border-color: color-mix(in srgb, var(--accent) 55%, transparent); box-shadow: var(--shadow); }
+.franja.abierta::after { transform: scaleX(1); }
+
+/* ------------------------------ estado cerrado --------------------------- */
+.franja__cerrado {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: 0 1.1rem;
+  transition: opacity .3s ease;
+}
+.franja__insignia {
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  flex: none;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.franja__insignia .arte { width: 24px; }
+.franja__rotulo { font-weight: 700; font-size: 1rem; letter-spacing: .01em; }
+.franja__flecha { margin-left: auto; color: var(--accent); font-size: 1.1rem; flex: none; }
+.franja.abierta .franja__cerrado { opacity: 0; }
+
+/* ------------------------------ estado abierto --------------------------- */
+.franja__abierto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  padding: 1.3rem 1.4rem;
+  opacity: 0;
+  visibility: hidden;
+  /* Red de seguridad en pantallas muy angostas, donde el texto envuelve más. */
+  overflow-y: auto;
+  transition: opacity .3s ease, visibility 0s linear .3s;
+}
+.franja.abierta .franja__abierto {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .35s ease .12s, visibility 0s;
+}
+.franja__arte { width: 60px; opacity: .95; margin-bottom: .1rem; }
+.franja__titulo { font-size: 1.12rem; font-weight: 700; line-height: 1.25; }
+.franja__desc { color: var(--muted); font-size: .92rem; margin: 0; }
+
+/* Vista previa del contenido que hay del otro lado del enlace. */
+.muestra { display: flex; flex-direction: column; gap: .3rem; margin-top: auto; }
+.muestra__fila {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  font-size: .82rem;
+  color: var(--muted);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding-left: .55rem;
+}
+.muestra__fila b {
+  color: var(--text);
+  font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.muestra__fila span { margin-left: auto; font-family: var(--mono); font-size: .74rem; white-space: nowrap; }
+.muestra__chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.muestra__chips .chip { font-size: .72rem; padding: .2rem .55rem; }
+.muestra__logos { display: flex; align-items: center; gap: .8rem; }
+.muestra__logos img { width: 26px; height: 26px; }
+
+.franja__cta {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .9rem;
+  color: var(--accent);
+  font-size: .87rem;
+  font-weight: 700;
+}
+.franja__cta svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+
+/* ======================= modo acordeón horizontal ======================== */
+@media (hover: hover) and (min-width: 861px) {
+  .acordeon {
+    flex-direction: row;
+    gap: .7rem;
+    height: clamp(390px, 56vh, 520px);
+  }
+
+  .franja {
+    flex: 1 1 0;
+    min-width: 0;
+    height: auto;
+    transition: flex-grow .55s cubic-bezier(.22,.61,.36,1), border-color .3s ease, box-shadow .3s ease;
+  }
+  /* Al entrar el mouse al grupo, las que no reciben el puntero se comprimen. */
+  .acordeon:hover .franja,
+  .acordeon:focus-within .franja { flex-grow: .82; }
+  /* La franja activa se expande. Lleva `.acordeon` delante a propósito: sin él
+     la regla de arriba (más específica) también le aplicaría el .82. */
+  .acordeon .franja:hover,
+  .acordeon .franja:focus-visible {
+    flex-grow: 4.4;
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: var(--shadow);
+  }
+  .franja:hover::after,
+  .franja:focus-visible::after { transform: scaleX(1); }
+
+  /* Cerrado: insignia arriba y título girado leyéndose de abajo hacia arriba. */
+  .franja__cerrado {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem .6rem 1.4rem;
+  }
+  .franja__rotulo {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin-top: auto;
+    font-size: .95rem;
+    letter-spacing: .04em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .franja__flecha { display: none; }
+  .franja:hover .franja__cerrado,
+  .franja:focus-visible .franja__cerrado { opacity: 0; }
+
+  /* El ancho fijo evita que el texto se reacomode mientras crece la franja.
+     Se queda por debajo del ancho que alcanza la franja expandida en todo el
+     rango (el contenedor tope en 1140px), así que nunca desborda. */
+  .franja__abierto {
+    width: min(34rem, 42vw);
+    padding: 1.5rem 1.6rem;
+    gap: .6rem;
+  }
+  .franja:hover .franja__abierto,
+  .franja:focus-visible .franja__abierto {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .35s ease .18s, visibility 0s;
+  }
+  .franja__arte { width: 86px; }
+  .franja__titulo { font-size: 1.2rem; }
+
+  /* Con el mouse dentro del acordeón manda el hover: si además hubiera una
+     franja con el foco del teclado se abrirían dos a la vez y ninguna tendría
+     ancho para su contenido. La franja enfocada conserva su anillo de foco y
+     la barra de acento, y vuelve a expandirse en cuanto el mouse sale. */
+  .acordeon:hover .franja:focus-visible:not(:hover) { flex-grow: .82; }
+  .acordeon:hover .franja:focus-visible:not(:hover) .franja__cerrado { opacity: 1; }
+  .acordeon:hover .franja:focus-visible:not(:hover) .franja__abierto {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Entrada escalonada de las franjas al cargar la portada. */
+@media (prefers-reduced-motion: no-preference) {
+  .franja { animation: entra .6s cubic-bezier(.22,.61,.36,1) backwards; }
+  .franja:nth-child(1) { animation-delay: .05s; }
+  .franja:nth-child(2) { animation-delay: .12s; }
+  .franja:nth-child(3) { animation-delay: .19s; }
+  .franja:nth-child(4) { animation-delay: .26s; }
+  .franja:nth-child(5) { animation-delay: .33s; }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } }
+}

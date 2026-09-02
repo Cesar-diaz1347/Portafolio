@@ -13,22 +13,73 @@
 <meta property="og:image" content="assets/img/perfil.jpg">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/sitio.css">
+<link rel="stylesheet" href="assets/css/acordeon.css">
 <script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
 </head>
 <body>
 
+<!-- Biblioteca de figuras: se dibujan una vez y se reutilizan con <use>. -->
+<svg class="sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="arte-experiencia" viewBox="0 0 96 96">
+    <rect style="fill:var(--tinte);stroke:var(--accent)" x="6" y="28" width="66" height="48" rx="9"/>
+    <path style="stroke:var(--accent)" d="M31 28v-6a7 7 0 0 1 7-7h3a7 7 0 0 1 7 7v6"/>
+    <path d="M6 45h66"/>
+    <rect x="33" y="39" width="12" height="11" rx="3"/>
+    <circle style="fill:var(--arte-hueco,var(--surface));stroke:none" cx="72" cy="64" r="24"/>
+    <circle style="stroke:var(--accent)" cx="72" cy="64" r="18"/>
+    <path style="stroke:var(--accent)" d="M72 53v11l7 5"/>
+  </symbol>
+
+  <symbol id="arte-proyectos" viewBox="0 0 96 96">
+    <rect style="fill:var(--tinte);stroke:var(--accent)" x="28" y="28" width="40" height="40" rx="8"/>
+    <path style="stroke:var(--accent)" d="M48 37v21"/>
+    <path style="stroke:var(--accent)" d="M48 37c-5-3-12 0-11 6-5 2-4 9 1 11 0 6 7 8 10 4"/>
+    <path style="stroke:var(--accent)" d="M48 37c5-3 12 0 11 6 5 2 4 9-1 11 0 6-7 8-10 4"/>
+    <path d="M43 44c3 0 4 2 4 4M53 44c-3 0-4 2-4 4"/>
+    <path d="M38 28V17M48 28V13M58 28V17M38 68v11M48 68v15M58 68v11M28 38H17M28 48H13M28 58H17M68 38h11M68 48h15M68 58h11"/>
+    <circle style="fill:var(--accent);stroke:none" cx="48" cy="10" r="3"/>
+    <circle style="fill:var(--accent);stroke:none" cx="48" cy="86" r="3"/>
+    <circle style="fill:var(--accent);stroke:none" cx="10" cy="48" r="3"/>
+    <circle style="fill:var(--accent);stroke:none" cx="86" cy="48" r="3"/>
+  </symbol>
+
+  <symbol id="arte-competencias" viewBox="0 0 96 96">
+    <rect style="fill:var(--tinte);stroke:var(--accent)" x="8" y="16" width="80" height="54" rx="7"/>
+    <path d="M40 70l-4 12M56 70l4 12M30 82h36"/>
+    <circle style="stroke:var(--accent)" cx="32" cy="43" r="8"/>
+    <path style="stroke:var(--accent)" d="M32 32v-3M32 54v3M21 43h-3M43 43h3M39.8 50.8l2.1 2.1M24.2 35.2l-2.1-2.1M39.8 35.2l2.1-2.1M24.2 50.8l-2.1 2.1"/>
+    <path d="M60 32h18M60 43h12M60 54h18"/>
+    <circle style="fill:var(--accent);stroke:none" cx="53" cy="32" r="2.4"/>
+    <circle style="fill:var(--accent);stroke:none" cx="53" cy="43" r="2.4"/>
+    <circle style="fill:var(--accent);stroke:none" cx="53" cy="54" r="2.4"/>
+  </symbol>
+
+  <symbol id="arte-certificaciones" viewBox="0 0 96 96">
+    <rect style="fill:var(--tinte);stroke:var(--accent)" x="6" y="18" width="76" height="48" rx="7"/>
+    <path d="M22 32h34M22 41h44M22 50h24"/>
+    <circle style="fill:var(--arte-hueco,var(--surface));stroke:none" cx="68" cy="58" r="23"/>
+    <path style="stroke:var(--accent)" d="M61 68v20l7-6 7 6V68"/>
+    <circle style="fill:var(--tinte);stroke:var(--accent)" cx="68" cy="58" r="13"/>
+    <circle style="stroke:var(--accent)" cx="68" cy="58" r="6.5"/>
+  </symbol>
+
+  <symbol id="arte-contacto" viewBox="0 0 96 96">
+    <path d="M8 41 48 14l40 27"/>
+    <rect style="fill:var(--arte-hueco,var(--surface));stroke:none" x="26" y="21" width="44" height="33"/>
+    <rect x="26" y="21" width="44" height="33" rx="2"/>
+    <path d="M33 30h30M33 38h30M33 46h17"/>
+    <path style="fill:var(--tinte);stroke:var(--accent)" d="M8 41v33a6 6 0 0 0 6 6h68a6 6 0 0 0 6-6V41L48 69 8 41Z"/>
+  </symbol>
+</svg>
+
 <header class="nav">
   <div class="contenedor nav__inner">
-    <a class="nav__marca" href="#inicio">
+    <a class="nav__marca" href="index.html">
       <span class="nav__monograma" aria-hidden="true">CD</span>
       <span>César Díaz<small>Full Stack &amp; Datos</small></span>
     </a>
-    <nav class="nav__links" aria-label="Secciones">
-      <a href="#sobre-mi">Sobre mí</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
+    <a class="nav__volver" href="secciones/contacto.html">Contacto</a>
     <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
       <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
       <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
@@ -36,26 +87,24 @@
   </div>
 </header>
 
-<main id="inicio">
+<main>
 
-  <!-- ================= SEGMENTO 1 · SOBRE MÍ ================= -->
-  <section class="seccion hero" id="sobre-mi" aria-labelledby="t-sobre-mi">
+  <!-- ============================ PRESENTACIÓN ============================ -->
+  <section class="hero" aria-labelledby="t-hero">
     <div class="contenedor">
       <div class="hero__grid">
         <div>
           <span class="hero__eyebrow">Disponible para nuevos proyectos · remoto</span>
-          <h1>César Alejandro Díaz Cano</h1>
+          <h1 id="t-hero">César Alejandro Díaz Cano</h1>
           <p class="hero__rol">Desarrollador Full Stack &amp; Especialista ETL / SQL Server</p>
           <p class="hero__texto">
             Ingeniero en Electrónica, Informática y Ciencias de la Computación con más de 8 años de
             experiencia end-to-end en desarrollo Full Stack (React, C#&nbsp;/&nbsp;.NET&nbsp;8-10, SQL Server)
             e ingeniería de datos (SSIS, SSRS, ETL/ELT, Data Warehousing). Historial integrando sistemas
-            críticos en banca, retail y manufactura: arquitecturas de APIs REST, automatización de procesos
-            de negocio y orquestación de datos masivos hacia bases de datos relacionales. Trabajo en entornos
-            ágiles con Azure DevOps y GitHub Actions. Guatemala, disponible remoto. Inglés B1.
+            críticos en banca, retail y manufactura. Guatemala, disponible remoto. Inglés B1.
           </p>
           <div class="hero__acciones">
-            <a class="btn btn--primario" href="#proyectos">
+            <a class="btn btn--primario" href="secciones/proyectos.html">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2H4V5zm0 6h16v2H4v-2zm0 6h10v2H4v-2z"/></svg>
               Ver proyectos
             </a>
@@ -66,10 +115,6 @@
             <a class="btn" href="https://wa.me/50242909263?text=Hola%20C%C3%A9sar%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20contigo." target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 2.02c-5.5 0-9.97 4.47-9.97 9.97 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.93 9.93 0 0 0 4.88 1.27h.01c5.5 0 9.97-4.47 9.97-9.97s-4.48-9.93-9.98-9.93zm0 18.2h-.01a8.27 8.27 0 0 1-4.21-1.15l-.3-.18-3.06.8.82-2.99-.2-.31a8.24 8.24 0 0 1-1.27-4.4c0-4.57 3.72-8.29 8.29-8.29 2.21 0 4.29.86 5.86 2.43a8.24 8.24 0 0 1 2.43 5.87c0 4.57-3.72 8.29-8.35 8.29z"/></svg>
               WhatsApp
-            </a>
-            <a class="btn" href="https://github.com/Cesar-diaz1347" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-              GitHub
             </a>
             <a class="btn btn--fantasma" href="assets/CesarDiazDesarrollador.pdf" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3 1.4 1.42L12 16.41l-4.7-4.7 1.4-1.42 2.3 2.3V4a1 1 0 0 1 1-1zM5 18h14v2H5v-2z"/></svg>
@@ -86,276 +131,149 @@
         <div class="panel metrica"><b>8+</b><span>años de experiencia</span></div>
         <div class="panel metrica"><b data-metrica-proyectos>13</b><span>proyectos documentados</span></div>
         <div class="panel metrica"><b>5</b><span>empresas (banca, retail, manufactura)</span></div>
-        <div class="panel metrica"><b data-metrica-certificaciones>7</b><span>certificaciones (DataCamp, QA)</span></div>
-      </div>
-      <h2 id="t-sobre-mi" class="solo-lectores">Sobre mí</h2>
-    </div>
-  </section>
-
-  <section class="seccion seccion--alt" aria-labelledby="t-experiencia">
-    <div class="contenedor">
-      <div class="seccion__cabecera reveal">
-        <span class="seccion__num">01 · Trayectoria</span>
-        <h2 id="t-experiencia">Experiencia profesional</h2>
-        <p class="seccion__sub">De la administración de bases de datos a liderar sistemas integrales dentro de la banca.</p>
-      </div>
-
-      <div class="timeline">
-        <article class="panel trabajo reveal">
-          <div class="trabajo__top">
-            <h3>Desarrollador de Tecnología</h3>
-            <span class="trabajo__empresa">Banco Internacional</span>
-            <span class="trabajo__fechas">Julio 2022 — Presente</span>
-          </div>
-          <ul>
-            <li>Lideré el diseño e implementación end-to-end del sistema de automatización de la cafetería institucional (app de proveedor, gestión de órdenes y cobros para RRHH, cobro electrónico y portal web), desarrollando la solución completa en React, C# (.NET) y SQL Server.</li>
-            <li>Diseñé e implementé pipelines ETL en SSIS integrados con Azure DevOps para consumir APIs REST asíncronas de terceros, procesando datos JSON hacia bases de datos relacionales del banco.</li>
-            <li>Aseguré la disponibilidad y el rendimiento de aplicaciones críticas (Sistema de Embozado de Tarjetas de Crédito, Sorteos Diarios, Calificación de Servicio al Cliente) mediante soporte, optimización y mantenimiento continuo.</li>
-            <li>Administré e implementé el ecosistema institucional de reportes empresariales con SSRS y SSIS, respaldando la toma de decisiones de negocio.</li>
-          </ul>
-        </article>
-
-        <article class="panel trabajo reveal">
-          <div class="trabajo__top">
-            <h3>Especialista en Soporte &amp; Bases de Datos</h3>
-            <span class="trabajo__empresa">Grupo Unicomer</span>
-            <span class="trabajo__fechas">Enero 2022 — Junio 2022</span>
-          </div>
-          <ul>
-            <li>Brindé soporte y mantenimiento a la aplicación de traslado de inventarios inter-sucursales.</li>
-            <li>Depuré, mantuve y optimicé el rendimiento de bases de datos relacionales.</li>
-            <li>Diseñé y ejecuté procesos ETL entre Data Warehouse y Datamarts mediante SSRS, habilitando reportes que respaldaron la toma de decisiones empresariales.</li>
-          </ul>
-        </article>
-
-        <article class="panel trabajo reveal">
-          <div class="trabajo__top">
-            <h3>Desarrollador de Tecnología</h3>
-            <span class="trabajo__empresa">Colgate-Palmolive</span>
-            <span class="trabajo__fechas">Noviembre 2020 — Octubre 2021</span>
-          </div>
-          <ul>
-            <li>Desarrollé una solución analítica para el monitoreo de categorías comerciales a nivel Centroamérica mediante dashboards de seguimiento.</li>
-            <li>Construí un sistema de control de empaquetado integrado con controladores lógicos programables (PLC) para análisis de eficiencia y pérdidas operativas en tiempo real.</li>
-            <li>Creé una aplicación de análisis de productividad por categoría operativa en Guatemala.</li>
-          </ul>
-        </article>
-
-        <article class="panel trabajo reveal">
-          <div class="trabajo__top">
-            <h3>Desarrollador de Software &amp; Administrador BD</h3>
-            <span class="trabajo__empresa">Autopan (Sur-Occidente) <span class="trabajo__modo">Freelance</span></span>
-            <span class="trabajo__fechas">Enero 2018 — Abril 2020</span>
-          </div>
-          <ul>
-            <li>Administré integralmente la base de datos y desarrollé el sistema de control de inventarios mediante automatización de reportes y procesos.</li>
-          </ul>
-        </article>
-
-        <article class="panel trabajo reveal">
-          <div class="trabajo__top">
-            <h3>Desarrollador de Sistemas</h3>
-            <span class="trabajo__empresa">Itics <span class="trabajo__modo">Freelance</span></span>
-            <span class="trabajo__fechas">Febrero 2016 — Diciembre 2019</span>
-          </div>
-          <ul>
-            <li>Desarrollé y di soporte continuo a la plataforma de asignación académica y gestión de tareas para estudiantes mediante mejoras iterativas de backend y base de datos.</li>
-          </ul>
-        </article>
+        <div class="panel metrica"><b>7</b><span>certificaciones (DataCamp, QA)</span></div>
       </div>
     </div>
   </section>
 
-  <section class="seccion" aria-labelledby="t-stack">
+  <!-- ============================== ACORDEÓN ============================== -->
+  <section class="explorar" aria-labelledby="t-explorar">
     <div class="contenedor">
-      <div class="seccion__cabecera reveal">
-        <span class="seccion__num">02 · Stack</span>
-        <h2 id="t-stack">Competencias técnicas</h2>
-        <p class="seccion__sub">Las cuatro áreas del CV. Cada tecnología con proyectos detrás se puede pulsar para ver cuáles.</p>
-      </div>
-
-      <div class="skills">
-        <div class="panel reveal">
-          <h3>Backend &amp; Lenguajes</h3>
-          <div class="skills__lista">
-            <span class="chip chip--accent">C#</span>
-            <span class="chip chip--accent">.NET 8 / .NET Core / .NET Framework</span>
-            <span class="chip chip--accent">ASP.NET MVC</span>
-            <span class="chip chip--accent">WinForms</span>
-            <span class="chip chip--accent">T-SQL</span>
-            <span class="chip chip--accent">Stored Procedures</span>
-            <span class="chip chip--accent">Triggers</span>
-            <span class="chip chip--accent">LINQ</span>
-          </div>
-        </div>
-        <div class="panel reveal">
-          <h3>Frontend &amp; Web</h3>
-          <div class="skills__lista">
-            <span class="chip">React.js</span>
-            <span class="chip">Angular</span>
-            <span class="chip">TypeScript</span>
-            <span class="chip">JavaScript</span>
-            <span class="chip">HTML5</span>
-            <span class="chip">CSS3</span>
-            <span class="chip">REST API</span>
-            <span class="chip">JSON</span>
-            <span class="chip">JWT</span>
-          </div>
-        </div>
-        <div class="panel reveal">
-          <h3>Datos &amp; ETL</h3>
-          <div class="skills__lista">
-            <span class="chip">SQL Server</span>
-            <span class="chip">SSIS</span>
-            <span class="chip">SSRS</span>
-            <span class="chip">ETL</span>
-            <span class="chip">ELT</span>
-            <span class="chip">Data Warehouse</span>
-            <span class="chip">Datamarts</span>
-            <span class="chip">Database Design</span>
-            <span class="chip">Data Cleaning</span>
-            <span class="chip">PySpark</span>
-            <span class="chip">Python</span>
-          </div>
-        </div>
-        <div class="panel reveal">
-          <h3>Cloud &amp; DevOps</h3>
-          <div class="skills__lista">
-            <span class="chip">Azure DevOps</span>
-            <span class="chip">Git</span>
-            <span class="chip">GitHub Actions</span>
-            <span class="chip">CI/CD</span>
-            <span class="chip">AWS (Machine Learning)</span>
-          </div>
-        </div>
-      </div>
-
-      <h3 class="reveal" style="margin-top:2.4rem">Educación y certificaciones</h3>
-      <ul class="educacion reveal">
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Ingeniería en Electrónica, Informática y Ciencias de la Computación</b>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">AWS Machine Learning – Specialty Certification Preparation</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">QA</span>
-            <span class="educacion__fecha">Sep 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Data Warehousing Concepts</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Jul 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">ETL and ELT in Python</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Sep 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Big Data Fundamentals with PySpark</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Sep 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Database Design</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Oct 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Functions for Manipulating Data in SQL Server</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Nov 2024</span>
-          </span>
-          </span>
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.9 6.26L21.6 9l-4.8 4.55L18 20.5 12 17.1 6 20.5l1.2-6.95L2.4 9l6.7-.74L12 2z"/></svg>
-          <span class="educacion__txt">
-            <b class="educacion__nombre">Cleaning Data in SQL Server Databases</b>
-          <span class="educacion__meta">
-            <span class="educacion__emisor">DataCamp</span>
-            <span class="educacion__fecha">Nov 2024</span>
-          </span>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ================= SEGMENTO 2 · PROYECTOS ================= -->
-  <section class="seccion seccion--alt" id="proyectos" aria-labelledby="t-proyectos">
-    <div class="contenedor">
-      <div class="seccion__cabecera reveal">
-        <span class="seccion__num">03 · Portafolio</span>
-        <h2 id="t-proyectos">Proyectos</h2>
+      <div class="explorar__cabecera">
+        <span class="seccion__num">Explorar</span>
+        <h2 id="t-explorar">El portafolio, sección por sección</h2>
         <p class="seccion__sub">
-          Cada botón con la etiqueta <b>Demo interactiva</b> abre en una pestaña nueva una reconstrucción
-          funcional del sistema, con datos ficticios pero la misma lógica de negocio que implementé en producción.
+          Pasa el mouse sobre una franja para ver de qué trata; al hacer clic se abre completa
+          en una pestaña nueva, sin perder esta página.
         </p>
+        <span class="explorar__pista">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a1 1 0 0 0-2 0v8.59l-2.3-2.3-1.4 1.42L12 16.41l4.7-4.7-1.4-1.42-2.3 2.3V3z"/></svg>
+          Cada franja abre en una pestaña nueva
+        </span>
       </div>
 
-      <div class="filtros" id="filtros" role="group" aria-label="Filtrar proyectos"></div>
-      <div class="proyectos" id="grid-proyectos"></div>
-    </div>
-  </section>
+      <div class="acordeon" id="acordeon">
 
-  <!-- ================= CONTACTO ================= -->
-  <section class="seccion contacto" id="contacto" aria-labelledby="t-contacto">
-    <div class="contenedor">
-      <div class="reveal">
-        <span class="seccion__num">04 · Contacto</span>
-        <h2 id="t-contacto">¿Construimos algo juntos?</h2>
-        <p class="seccion__sub">Escríbeme por el canal que prefieras.</p>
-      </div>
-      <div class="contacto__botones reveal">
-        <a class="btn btn--primario" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cesar.diaz1347@gmail.com&amp;su=Contacto%20desde%20tu%20portafolio&amp;body=Hola%20C%C3%A9sar%2C" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.24-8 5-8-5V6l8 5 8-5v2.24z"/></svg>
-          Enviar correo con Gmail
+        <a class="franja" href="secciones/experiencia.html" target="_blank" rel="noopener"
+           aria-label="Abrir Experiencia profesional en una pestaña nueva">
+          <span class="franja__cerrado" aria-hidden="true">
+            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-experiencia"/></svg></span>
+            <span class="franja__rotulo">Experiencia profesional</span>
+            <span class="franja__flecha">↗</span>
+          </span>
+          <span class="franja__abierto">
+            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-experiencia"/></svg>
+            <span class="franja__titulo">Experiencia profesional</span>
+            <p class="franja__desc">8+ años en banca, retail y manufactura: de administrar bases de datos a liderar sistemas integrales dentro del banco.</p>
+            <span class="muestra">
+              <span class="muestra__fila"><b>Banco Internacional</b><span>2022 — Hoy</span></span>
+              <span class="muestra__fila"><b>Grupo Unicomer</b><span>2022</span></span>
+              <span class="muestra__fila"><b>Colgate-Palmolive</b><span>2020 — 2021</span></span>
+            </span>
+            <span class="franja__cta">
+              Ver los 5 puestos
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
+            </span>
+          </span>
         </a>
-        <a class="btn" href="https://wa.me/50242909263?text=Hola%20C%C3%A9sar%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20contigo." target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 2.02c-5.5 0-9.97 4.47-9.97 9.97 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.93 9.93 0 0 0 4.88 1.27h.01c5.5 0 9.97-4.47 9.97-9.97s-4.48-9.93-9.98-9.93zm0 18.2h-.01a8.27 8.27 0 0 1-4.21-1.15l-.3-.18-3.06.8.82-2.99-.2-.31a8.24 8.24 0 0 1-1.27-4.4c0-4.57 3.72-8.29 8.29-8.29 2.21 0 4.29.86 5.86 2.43a8.24 8.24 0 0 1 2.43 5.87c0 4.57-3.72 8.29-8.35 8.29z"/></svg>
-          Escribir por WhatsApp
+
+        <a class="franja" href="secciones/proyectos.html" target="_blank" rel="noopener"
+           aria-label="Abrir Proyectos en una pestaña nueva">
+          <span class="franja__cerrado" aria-hidden="true">
+            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-proyectos"/></svg></span>
+            <span class="franja__rotulo">Proyectos</span>
+            <span class="franja__flecha">↗</span>
+          </span>
+          <span class="franja__abierto">
+            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-proyectos"/></svg>
+            <span class="franja__titulo">Proyectos</span>
+            <p class="franja__desc">13 sistemas reales, 6 de ellos con demo interactiva jugable: la misma lógica de negocio que implementé en producción, con datos ficticios.</p>
+            <span class="muestra" data-muestra-proyectos></span>
+            <span class="franja__cta">
+              Ver el portafolio completo
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
+            </span>
+          </span>
         </a>
-        <a class="btn" href="https://github.com/Cesar-diaz1347" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.5 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
-          Ver mi GitHub
+
+        <a class="franja" href="secciones/competencias.html" target="_blank" rel="noopener"
+           aria-label="Abrir Competencias técnicas en una pestaña nueva">
+          <span class="franja__cerrado" aria-hidden="true">
+            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-competencias"/></svg></span>
+            <span class="franja__rotulo">Competencias técnicas</span>
+            <span class="franja__flecha">↗</span>
+          </span>
+          <span class="franja__abierto">
+            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-competencias"/></svg>
+            <span class="franja__titulo">Competencias técnicas</span>
+            <p class="franja__desc">Backend, frontend, datos y DevOps. Cada tecnología con proyectos detrás lleva directo a los sistemas donde la usé.</p>
+            <span class="muestra">
+              <span class="muestra__chips">
+                <span class="chip chip--accent">C#</span>
+                <span class="chip chip--accent">.NET 8</span>
+                <span class="chip">React.js</span>
+                <span class="chip">SQL Server</span>
+                <span class="chip">SSIS</span>
+                <span class="chip">Azure DevOps</span>
+              </span>
+            </span>
+            <span class="franja__cta">
+              Ver las 4 áreas del stack
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
+            </span>
+          </span>
         </a>
-      </div>
-      <div class="contacto__datos reveal">
-        <span>cesar.diaz1347@gmail.com</span>
-        <span>+502 4290-9263</span>
-        <span>Guatemala · disponible remoto</span>
-        <span>Inglés B1</span>
+
+        <a class="franja" href="secciones/certificaciones.html" target="_blank" rel="noopener"
+           aria-label="Abrir Educación y certificaciones en una pestaña nueva">
+          <span class="franja__cerrado" aria-hidden="true">
+            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-certificaciones"/></svg></span>
+            <span class="franja__rotulo">Educación y certificaciones</span>
+            <span class="franja__flecha">↗</span>
+          </span>
+          <span class="franja__abierto">
+            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-certificaciones"/></svg>
+            <span class="franja__titulo">Educación y certificaciones</span>
+            <p class="franja__desc">Ingeniería en Electrónica, Informática y Ciencias de la Computación, más 7 credenciales de DataCamp y QA en datos y nube.</p>
+            <span class="muestra">
+              <span class="muestra__fila"><b>AWS Machine Learning – Specialty</b><span>QA · 2024</span></span>
+              <span class="muestra__fila"><b>Data Warehousing Concepts</b><span>DataCamp</span></span>
+              <span class="muestra__fila"><b>ETL and ELT in Python</b><span>DataCamp</span></span>
+            </span>
+            <span class="franja__cta">
+              Ver todas las credenciales
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
+            </span>
+          </span>
+        </a>
+
+        <a class="franja" href="secciones/contacto.html" target="_blank" rel="noopener"
+           aria-label="Abrir Contacto en una pestaña nueva">
+          <span class="franja__cerrado" aria-hidden="true">
+            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-contacto"/></svg></span>
+            <span class="franja__rotulo">Contacto</span>
+            <span class="franja__flecha">↗</span>
+          </span>
+          <span class="franja__abierto">
+            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-contacto"/></svg>
+            <span class="franja__titulo">Contacto</span>
+            <p class="franja__desc">Escríbeme por el canal que prefieras. Respondo por correo y WhatsApp; el código está en GitHub.</p>
+            <span class="muestra">
+              <span class="muestra__logos">
+                <img src="assets/img/logos/gmail.svg" width="26" height="26" alt="Gmail">
+                <img src="assets/img/logos/whatsapp.svg" width="26" height="26" alt="WhatsApp">
+                <img class="logo-github--oscuro" src="assets/img/logos/github-dark.svg" width="26" height="26" alt="GitHub">
+                <img class="logo-github--claro" src="assets/img/logos/github-light.svg" width="26" height="26" alt="GitHub">
+              </span>
+              <span class="muestra__fila"><b>cesar.diaz1347@gmail.com</b></span>
+            </span>
+            <span class="franja__cta">
+              Ver todos los canales
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
+            </span>
+          </span>
+        </a>
+
       </div>
     </div>
   </section>
@@ -368,20 +286,8 @@
   </div>
 </footer>
 
-<dialog class="modal" id="modal-proyecto" aria-labelledby="modal-titulo">
-  <button class="btn btn--sm modal__cerrar" type="button" data-modal-cerrar aria-label="Cerrar">✕</button>
-  <span class="proyecto__empresa" data-modal-empresa></span>
-  <h3 id="modal-titulo" data-modal-titulo></h3>
-  <p class="muted" data-modal-reto></p>
-  <b>Lo que hice</b>
-  <ul data-modal-lista></ul>
-  <b>Resultado</b>
-  <p class="muted" data-modal-resultado></p>
-  <div class="modal__stack" data-modal-stack></div>
-</dialog>
-
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/proyectos.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/acordeon.js"></script>
 </body>
 </html>
