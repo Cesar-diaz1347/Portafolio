@@ -1,0 +1,9 @@
+{
+  /* Solo referencias: "files": [] evita que esta raíz incluya todo el árbol (demos-src, public…). */
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.demos.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

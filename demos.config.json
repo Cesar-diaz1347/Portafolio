@@ -1,0 +1,6 @@
+[
+  { "slug": "reservas", "tipo": "app", "dir": "demos-src/reservas" },
+  { "slug": "pokedex", "tipo": "app", "dir": "demos-src/pokedex" },
+  { "slug": "control-cuentas", "tipo": "app", "dir": "demos-src/control-cuentas" },
+  { "slug": "calculos-sql", "tipo": "entrada", "html": "demos/calculos-sql/index.html" }
+]

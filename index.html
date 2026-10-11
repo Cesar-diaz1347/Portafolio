@@ -1,293 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" data-theme="dark">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>César Díaz — Desarrollador Full Stack &amp; Especialista ETL / SQL Server</title>
-<meta name="description" content="Portafolio de César Alejandro Díaz Cano: desarrollador Full Stack (React, C#/.NET 8, SQL Server) y especialista en ingeniería de datos con SSIS, SSRS y ETL/ELT. Demos interactivas de proyectos reales.">
-<meta name="author" content="César Alejandro Díaz Cano">
-<meta name="theme-color" content="#0b1220">
-<meta property="og:type" content="website">
-<meta property="og:title" content="César Díaz — Desarrollador Full Stack &amp; Especialista ETL / SQL Server">
-<meta property="og:description" content="8+ años integrando sistemas críticos en banca, retail y manufactura. Demos interactivas de proyectos reales.">
-<meta property="og:image" content="assets/img/perfil.jpg">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/sitio.css">
-<link rel="stylesheet" href="assets/css/acordeon.css">
-<script>(function(){document.documentElement.classList.add("js");try{var t=localStorage.getItem("cd-tema");if(!t)t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>César Díaz — Desarrollador Full Stack &amp; Especialista ETL / SQL Server</title>
+    <meta
+      name="description"
+      content="Portafolio de César Alejandro Díaz Cano: desarrollador Full Stack (React, C# / .NET, SQL Server) y especialista en ingeniería de datos con SSIS, SSRS y ETL/ELT. Demos en vivo de sus proyectos."
+    />
+    <meta name="author" content="César Alejandro Díaz Cano" />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f7fb" />
 
-<!-- Biblioteca de figuras: se dibujan una vez y se reutilizan con <use>. -->
-<svg class="sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-  <symbol id="arte-experiencia" viewBox="0 0 96 96">
-    <rect style="fill:var(--tinte);stroke:var(--accent)" x="6" y="28" width="66" height="48" rx="9"/>
-    <path style="stroke:var(--accent)" d="M31 28v-6a7 7 0 0 1 7-7h3a7 7 0 0 1 7 7v6"/>
-    <path d="M6 45h66"/>
-    <rect x="33" y="39" width="12" height="11" rx="3"/>
-    <circle style="fill:var(--arte-hueco,var(--surface));stroke:none" cx="72" cy="64" r="24"/>
-    <circle style="stroke:var(--accent)" cx="72" cy="64" r="18"/>
-    <path style="stroke:var(--accent)" d="M72 53v11l7 5"/>
-  </symbol>
+    <!-- Open Graph: og:image es relativa por ahora; al elegir el repo destino se fija la URL absoluta (ver README). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_GT" />
+    <meta property="og:title" content="César Díaz — Desarrollador Full Stack &amp; Especialista ETL / SQL Server" />
+    <meta
+      property="og:description"
+      content="8+ años integrando sistemas críticos en banca, retail y manufactura. Demos en vivo de proyectos reales."
+    />
+    <meta property="og:image" content="/src/assets/perfil.jpg" />
+    <meta property="og:image:width" content="432" />
+    <meta property="og:image:height" content="432" />
+    <meta property="og:image:alt" content="Retrato de César Alejandro Díaz Cano" />
+    <meta name="twitter:card" content="summary" />
 
-  <symbol id="arte-proyectos" viewBox="0 0 96 96">
-    <rect style="fill:var(--tinte);stroke:var(--accent)" x="28" y="28" width="40" height="40" rx="8"/>
-    <path style="stroke:var(--accent)" d="M48 37v21"/>
-    <path style="stroke:var(--accent)" d="M48 37c-5-3-12 0-11 6-5 2-4 9 1 11 0 6 7 8 10 4"/>
-    <path style="stroke:var(--accent)" d="M48 37c5-3 12 0 11 6 5 2 4 9-1 11 0 6-7 8-10 4"/>
-    <path d="M43 44c3 0 4 2 4 4M53 44c-3 0-4 2-4 4"/>
-    <path d="M38 28V17M48 28V13M58 28V17M38 68v11M48 68v15M58 68v11M28 38H17M28 48H13M28 58H17M68 38h11M68 48h15M68 58h11"/>
-    <circle style="fill:var(--accent);stroke:none" cx="48" cy="10" r="3"/>
-    <circle style="fill:var(--accent);stroke:none" cx="48" cy="86" r="3"/>
-    <circle style="fill:var(--accent);stroke:none" cx="10" cy="48" r="3"/>
-    <circle style="fill:var(--accent);stroke:none" cx="86" cy="48" r="3"/>
-  </symbol>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/src/assets/perfil.jpg" />
 
-  <symbol id="arte-competencias" viewBox="0 0 96 96">
-    <rect style="fill:var(--tinte);stroke:var(--accent)" x="8" y="16" width="80" height="54" rx="7"/>
-    <path d="M40 70l-4 12M56 70l4 12M30 82h36"/>
-    <circle style="stroke:var(--accent)" cx="32" cy="43" r="8"/>
-    <path style="stroke:var(--accent)" d="M32 32v-3M32 54v3M21 43h-3M43 43h3M39.8 50.8l2.1 2.1M24.2 35.2l-2.1-2.1M39.8 35.2l2.1-2.1M24.2 50.8l-2.1 2.1"/>
-    <path d="M60 32h18M60 43h12M60 54h18"/>
-    <circle style="fill:var(--accent);stroke:none" cx="53" cy="32" r="2.4"/>
-    <circle style="fill:var(--accent);stroke:none" cx="53" cy="43" r="2.4"/>
-    <circle style="fill:var(--accent);stroke:none" cx="53" cy="54" r="2.4"/>
-  </symbol>
+    <!-- Tema antes del primer pintado (sin parpadeo). Misma clave que Portafolio1.2: cd-tema. -->
+    <script>
+      (function () {
+        var tema = null;
+        try {
+          var guardado = localStorage.getItem('cd-tema');
+          if (guardado === 'light' || guardado === 'dark') tema = guardado;
+        } catch (e) {}
+        if (tema) {
+          var color = tema === 'light' ? '#f4f7fb' : '#0b1220';
+          var metas = document.querySelectorAll('meta[name="theme-color"]');
+          for (var i = 0; i < metas.length; i++) metas[i].setAttribute('content', color);
+        } else {
+          tema =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', tema);
+      })();
+    </script>
 
-  <symbol id="arte-certificaciones" viewBox="0 0 96 96">
-    <rect style="fill:var(--tinte);stroke:var(--accent)" x="6" y="18" width="76" height="48" rx="7"/>
-    <path d="M22 32h34M22 41h44M22 50h24"/>
-    <circle style="fill:var(--arte-hueco,var(--surface));stroke:none" cx="68" cy="58" r="23"/>
-    <path style="stroke:var(--accent)" d="M61 68v20l7-6 7 6V68"/>
-    <circle style="fill:var(--tinte);stroke:var(--accent)" cx="68" cy="58" r="13"/>
-    <circle style="stroke:var(--accent)" cx="68" cy="58" r="6.5"/>
-  </symbol>
-
-  <symbol id="arte-contacto" viewBox="0 0 96 96">
-    <path d="M8 41 48 14l40 27"/>
-    <rect style="fill:var(--arte-hueco,var(--surface));stroke:none" x="26" y="21" width="44" height="33"/>
-    <rect x="26" y="21" width="44" height="33" rx="2"/>
-    <path d="M33 30h30M33 38h30M33 46h17"/>
-    <path style="fill:var(--tinte);stroke:var(--accent)" d="M8 41v33a6 6 0 0 0 6 6h68a6 6 0 0 0 6-6V41L48 69 8 41Z"/>
-  </symbol>
-</svg>
-
-<header class="nav">
-  <div class="contenedor nav__inner">
-    <a class="nav__marca" href="index.html">
-      <span class="nav__monograma" aria-hidden="true">CD</span>
-      <span>César Díaz<small>Full Stack &amp; Datos</small></span>
-    </a>
-    <a class="nav__volver" href="secciones/contacto.html">Contacto</a>
-    <button class="tema-btn" type="button" data-tema-toggle aria-pressed="false" aria-label="Activar modo claro" title="Modo claro">
-      <svg class="icono-sol" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1zM21 11a1 1 0 1 1 0 2h-1.5a1 1 0 1 1 0-2H21zM6 12a1 1 0 0 1-1 1H3.5a1 1 0 1 1 0-2H5a1 1 0 0 1 1 1zm12.36-6.36a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zM8.11 15.89a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 0 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0zm10.25 2.47a1 1 0 0 1-1.41 0l-1.06-1.06a1 1 0 0 1 1.41-1.41l1.06 1.06a1 1 0 0 1 0 1.41zM8.11 8.11a1 1 0 0 1-1.41 0L5.64 7.05A1 1 0 0 1 7.05 5.64L8.11 6.7a1 1 0 0 1 0 1.41z"/></svg>
-      <svg class="icono-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.1 1.4 7 7 0 0 0 8.13 8.13 1 1 0 0 1 1.4 1.07z"/></svg>
-    </button>
-  </div>
-</header>
-
-<main>
-
-  <!-- ============================ PRESENTACIÓN ============================ -->
-  <section class="hero" aria-labelledby="t-hero">
-    <div class="contenedor">
-      <div class="hero__grid">
-        <div>
-          <span class="hero__eyebrow">Disponible para nuevos proyectos · remoto</span>
-          <h1 id="t-hero">César Alejandro Díaz Cano</h1>
-          <p class="hero__rol">Desarrollador Full Stack &amp; Especialista ETL / SQL Server</p>
-          <p class="hero__texto">
-            Ingeniero en Electrónica, Informática y Ciencias de la Computación con más de 8 años de
-            experiencia end-to-end en desarrollo Full Stack (React, C#&nbsp;/&nbsp;.NET&nbsp;8-10, SQL Server)
-            e ingeniería de datos (SSIS, SSRS, ETL/ELT, Data Warehousing). Historial integrando sistemas
-            críticos en banca, retail y manufactura. Guatemala, disponible remoto. Inglés B1.
-          </p>
-          <div class="hero__acciones">
-            <a class="btn btn--primario" href="secciones/proyectos.html">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2H4V5zm0 6h16v2H4v-2zm0 6h10v2H4v-2z"/></svg>
-              Ver proyectos
-            </a>
-            <a class="btn" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=cesar.diaz1347@gmail.com&amp;su=Contacto%20desde%20tu%20portafolio" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.24-8 5-8-5V6l8 5 8-5v2.24z"/></svg>
-              Escribirme por Gmail
-            </a>
-            <a class="btn" href="https://wa.me/50242909263?text=Hola%20C%C3%A9sar%2C%20vi%20tu%20portafolio%20y%20quisiera%20conversar%20contigo." target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35zM12.04 2.02c-5.5 0-9.97 4.47-9.97 9.97 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.93 9.93 0 0 0 4.88 1.27h.01c5.5 0 9.97-4.47 9.97-9.97s-4.48-9.93-9.98-9.93zm0 18.2h-.01a8.27 8.27 0 0 1-4.21-1.15l-.3-.18-3.06.8.82-2.99-.2-.31a8.24 8.24 0 0 1-1.27-4.4c0-4.57 3.72-8.29 8.29-8.29 2.21 0 4.29.86 5.86 2.43a8.24 8.24 0 0 1 2.43 5.87c0 4.57-3.72 8.29-8.35 8.29z"/></svg>
-              WhatsApp
-            </a>
-            <a class="btn btn--fantasma" href="assets/CesarDiazDesarrollador.pdf" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3 1.4 1.42L12 16.41l-4.7-4.7 1.4-1.42 2.3 2.3V4a1 1 0 0 1 1-1zM5 18h14v2H5v-2z"/></svg>
-              Descargar CV
-            </a>
-          </div>
-        </div>
-        <figure class="hero__foto">
-          <img src="assets/img/perfil.jpg" width="280" height="280" alt="Retrato de César Alejandro Díaz Cano">
-        </figure>
-      </div>
-
-      <div class="metricas">
-        <div class="panel metrica"><b>8+</b><span>años de experiencia</span></div>
-        <div class="panel metrica"><b data-metrica-proyectos>13</b><span>proyectos documentados</span></div>
-        <div class="panel metrica"><b>5</b><span>empresas (banca, retail, manufactura)</span></div>
-        <div class="panel metrica"><b>7</b><span>certificaciones (DataCamp, QA)</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================== ACORDEÓN ============================== -->
-  <section class="explorar" aria-labelledby="t-explorar">
-    <div class="contenedor">
-      <div class="explorar__cabecera">
-        <span class="seccion__num">Explorar</span>
-        <h2 id="t-explorar">El portafolio, sección por sección</h2>
-        <p class="seccion__sub">
-          Pasa el mouse sobre una franja para ver de qué trata; al hacer clic se abre completa
-          en una pestaña nueva, sin perder esta página.
-        </p>
-        <span class="explorar__pista">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a1 1 0 0 0-2 0v8.59l-2.3-2.3-1.4 1.42L12 16.41l4.7-4.7-1.4-1.42-2.3 2.3V3z"/></svg>
-          Cada franja abre en una pestaña nueva
-        </span>
-      </div>
-
-      <div class="acordeon" id="acordeon">
-
-        <a class="franja" href="secciones/experiencia.html" target="_blank" rel="noopener"
-           aria-label="Abrir Experiencia profesional en una pestaña nueva">
-          <span class="franja__cerrado" aria-hidden="true">
-            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-experiencia"/></svg></span>
-            <span class="franja__rotulo">Experiencia profesional</span>
-            <span class="franja__flecha">↗</span>
-          </span>
-          <span class="franja__abierto">
-            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-experiencia"/></svg>
-            <span class="franja__titulo">Experiencia profesional</span>
-            <p class="franja__desc">8+ años en banca, retail y manufactura: de administrar bases de datos a liderar sistemas integrales dentro del banco.</p>
-            <span class="muestra">
-              <span class="muestra__fila"><b>Banco Internacional</b><span>2022 — Hoy</span></span>
-              <span class="muestra__fila"><b>Grupo Unicomer</b><span>2022</span></span>
-              <span class="muestra__fila"><b>Colgate-Palmolive</b><span>2020 — 2021</span></span>
-            </span>
-            <span class="franja__cta">
-              Ver los 5 puestos
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
-            </span>
-          </span>
-        </a>
-
-        <a class="franja" href="secciones/proyectos.html" target="_blank" rel="noopener"
-           aria-label="Abrir Proyectos en una pestaña nueva">
-          <span class="franja__cerrado" aria-hidden="true">
-            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-proyectos"/></svg></span>
-            <span class="franja__rotulo">Proyectos</span>
-            <span class="franja__flecha">↗</span>
-          </span>
-          <span class="franja__abierto">
-            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-proyectos"/></svg>
-            <span class="franja__titulo">Proyectos</span>
-            <p class="franja__desc">13 sistemas reales, 6 de ellos con demo interactiva jugable: la misma lógica de negocio que implementé en producción, con datos ficticios.</p>
-            <span class="muestra" data-muestra-proyectos></span>
-            <span class="franja__cta">
-              Ver el portafolio completo
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
-            </span>
-          </span>
-        </a>
-
-        <a class="franja" href="secciones/competencias.html" target="_blank" rel="noopener"
-           aria-label="Abrir Competencias técnicas en una pestaña nueva">
-          <span class="franja__cerrado" aria-hidden="true">
-            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-competencias"/></svg></span>
-            <span class="franja__rotulo">Competencias técnicas</span>
-            <span class="franja__flecha">↗</span>
-          </span>
-          <span class="franja__abierto">
-            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-competencias"/></svg>
-            <span class="franja__titulo">Competencias técnicas</span>
-            <p class="franja__desc">Backend, frontend, datos y DevOps. Cada tecnología con proyectos detrás lleva directo a los sistemas donde la usé.</p>
-            <span class="muestra">
-              <span class="muestra__chips">
-                <span class="chip chip--accent">C#</span>
-                <span class="chip chip--accent">.NET 8</span>
-                <span class="chip">React.js</span>
-                <span class="chip">SQL Server</span>
-                <span class="chip">SSIS</span>
-                <span class="chip">Azure DevOps</span>
-              </span>
-            </span>
-            <span class="franja__cta">
-              Ver las 4 áreas del stack
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
-            </span>
-          </span>
-        </a>
-
-        <a class="franja" href="secciones/certificaciones.html" target="_blank" rel="noopener"
-           aria-label="Abrir Educación y certificaciones en una pestaña nueva">
-          <span class="franja__cerrado" aria-hidden="true">
-            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-certificaciones"/></svg></span>
-            <span class="franja__rotulo">Educación y certificaciones</span>
-            <span class="franja__flecha">↗</span>
-          </span>
-          <span class="franja__abierto">
-            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-certificaciones"/></svg>
-            <span class="franja__titulo">Educación y certificaciones</span>
-            <p class="franja__desc">Ingeniería en Electrónica, Informática y Ciencias de la Computación, más 7 credenciales de DataCamp y QA en datos y nube.</p>
-            <span class="muestra">
-              <span class="muestra__fila"><b>AWS Machine Learning – Specialty</b><span>QA · 2024</span></span>
-              <span class="muestra__fila"><b>Data Warehousing Concepts</b><span>DataCamp</span></span>
-              <span class="muestra__fila"><b>ETL and ELT in Python</b><span>DataCamp</span></span>
-            </span>
-            <span class="franja__cta">
-              Ver todas las credenciales
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
-            </span>
-          </span>
-        </a>
-
-        <a class="franja" href="secciones/contacto.html" target="_blank" rel="noopener"
-           aria-label="Abrir Contacto en una pestaña nueva">
-          <span class="franja__cerrado" aria-hidden="true">
-            <span class="franja__insignia"><svg class="arte" viewBox="0 0 96 96"><use href="#arte-contacto"/></svg></span>
-            <span class="franja__rotulo">Contacto</span>
-            <span class="franja__flecha">↗</span>
-          </span>
-          <span class="franja__abierto">
-            <svg class="arte franja__arte" viewBox="0 0 96 96" aria-hidden="true"><use href="#arte-contacto"/></svg>
-            <span class="franja__titulo">Contacto</span>
-            <p class="franja__desc">Escríbeme por el canal que prefieras. Respondo por correo y WhatsApp; el código está en GitHub.</p>
-            <span class="muestra">
-              <span class="muestra__logos">
-                <img src="assets/img/logos/gmail.svg" width="26" height="26" alt="Gmail">
-                <img src="assets/img/logos/whatsapp.svg" width="26" height="26" alt="WhatsApp">
-                <img class="logo-github--oscuro" src="assets/img/logos/github-dark.svg" width="26" height="26" alt="GitHub">
-                <img class="logo-github--claro" src="assets/img/logos/github-light.svg" width="26" height="26" alt="GitHub">
-              </span>
-              <span class="muestra__fila"><b>cesar.diaz1347@gmail.com</b></span>
-            </span>
-            <span class="franja__cta">
-              Ver todos los canales
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3zM5 5h5v2H7v10h10v-3h2v5H5V5z"/></svg>
-            </span>
-          </span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="contenedor footer__inner">
-    <span>© <span id="anio">2026</span> César Alejandro Díaz Cano — Hecho con HTML, CSS y JavaScript, sin frameworks.</span>
-    <span><a href="mailto:cesar.diaz1347@gmail.com">cesar.diaz1347@gmail.com</a></span>
-  </div>
-</footer>
-
-<script src="assets/js/theme.js"></script>
-<script src="assets/js/proyectos.js"></script>
-<script src="assets/js/acordeon.js"></script>
-</body>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "César Alejandro Díaz Cano",
+        "jobTitle": "Desarrollador Full Stack & Especialista ETL / SQL Server",
+        "description": "Desarrollador Full Stack (React, C# / .NET 8-10, SQL Server) y especialista en ingeniería de datos con SSIS, SSRS y ETL/ELT.",
+        "email": "mailto:cesar.diaz1347@gmail.com",
+        "address": { "@type": "PostalAddress", "addressCountry": "GT" },
+        "knowsLanguage": ["es", "en"],
+        "sameAs": ["https://github.com/Cesar-diaz1347", "https://www.linkedin.com/in/cesar-diaz-desarrollador"]
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        Este portafolio necesita JavaScript. Puedes escribirme a
+        <a href="mailto:cesar.diaz1347@gmail.com">cesar.diaz1347@gmail.com</a>.
+      </p>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

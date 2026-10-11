@@ -1,9 +1,36 @@
-# Sistema
-Thumbs.db
-desktop.ini
-.DS_Store
+# Dependencias y builds
+node_modules
+dist
+dist-ssr
+.vite
+coverage
+*.tsbuildinfo
+*.local
 
-# Editores / herramientas locales
-.vscode/
-.idea/
+# Demos: el build del portafolio las genera en public/demos/ (npm run build:demos)
+public/demos/
+demos-src/*/node_modules
+demos-src/*/dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Configuración local de herramientas (p. ej. .claude/launch.json del preview)
 .claude/
+
+# Editores y sistema
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
