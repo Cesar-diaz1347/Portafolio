@@ -1,0 +1,3 @@
+# Copias exactas de los scripts de Conteo y Valor: git no debe convertir sus finales de línea
+# (con core.autocrlf=true pasarían a CRLF y dejarían de ser idénticas al original).
+*.sql -text

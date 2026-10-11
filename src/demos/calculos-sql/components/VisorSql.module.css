@@ -1,0 +1,159 @@
+.visor {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.pestanas {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.pestana {
+  min-height: var(--objetivo-tactil);
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--muted);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pestana[aria-selected='true'] {
+  border-color: var(--accent);
+  background: var(--tinte);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.estado {
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.archivo {
+  color: var(--text);
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+/* Superficie de código oscura en los dos temas: los colores de los tokens se calcularon sobre ella. */
+.codigo {
+  --codigo-fondo: #0c1424;
+  --codigo-texto: #e2e8f0;
+  --codigo-numero: #8fa0bd;
+  --codigo-resalte: #22d3ee;
+  --codigo-marcado: color-mix(in srgb, var(--codigo-resalte) 18%, var(--codigo-fondo));
+
+  position: relative;
+  max-height: var(--alto-codigo, 28rem);
+  overflow: auto;
+  background: var(--codigo-fondo);
+  color: var(--codigo-texto);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+/* El visor recorta lo que sobresale (overflow: hidden): el contorno de foco va por dentro. */
+.codigo:focus-visible {
+  outline-offset: -3px;
+}
+
+.pre {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.linea {
+  display: block;
+  padding-right: 1rem;
+  white-space: pre;
+}
+
+/* Número de línea: pegado a la izquierda aunque el código se desplace en horizontal. */
+.linea::before {
+  content: attr(data-linea);
+  position: sticky;
+  left: 0;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 3.4rem;
+  margin-right: 0.9rem;
+  padding-right: 0.75rem;
+  background: var(--codigo-fondo);
+  color: var(--codigo-numero);
+  text-align: right;
+  user-select: none;
+}
+
+/* Bloque activo: fondo, barra en el número de línea y el rango escrito arriba (no solo color). */
+.activa {
+  background: var(--codigo-marcado);
+}
+
+.activa::before {
+  background: var(--codigo-marcado);
+  box-shadow: inset 3px 0 0 var(--codigo-resalte);
+  color: var(--codigo-texto);
+  font-weight: 700;
+}
+
+.palabra {
+  color: #f9a8d4;
+  font-weight: 600;
+}
+
+.tipo {
+  color: #7dd3fc;
+}
+
+.funcion {
+  color: #fcd34d;
+}
+
+.cadena {
+  color: #86efac;
+}
+
+.comentario {
+  color: #9fb0c8;
+  font-style: italic;
+}
+
+.numero {
+  color: #fdba74;
+}
+
+.variable {
+  color: #c4b5fd;
+}
+
+.temporal {
+  color: #5eead4;
+}

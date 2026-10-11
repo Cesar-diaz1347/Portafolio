@@ -1,0 +1,8 @@
+/* Confirmación con icono de verificación y texto, no solo con color. */
+.copiado {
+  border-color: var(--ok);
+}
+
+.copiado svg {
+  fill: var(--ok);
+}

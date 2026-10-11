@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Demo de reserva de citas médicas: elige sede, fecha y servicio, y gestiona tus citas. Datos simulados en tu navegador." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M10 7v7a2 2 0 0 0 2 2v9M14 7v7M18 7v7a2 2 0 0 1-2 2M22 25V7c-2.5 1-4 4-4 8v2h4' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <title>Reserva de citas médicas · Demo</title>
+    <!-- Tema antes del primer pintado: misma clave que usa la app (reservas.modoOscuro). -->
+    <script>
+      (function () {
+        try {
+          var guardada = localStorage.getItem('reservas.modoOscuro');
+          var oscuro =
+            guardada !== null
+              ? guardada === 'true'
+              : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (oscuro) document.documentElement.classList.add('dark');
+        } catch (e) {
+          /* sin acceso a localStorage: se queda el tema claro */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

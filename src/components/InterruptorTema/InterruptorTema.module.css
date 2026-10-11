@@ -1,0 +1,33 @@
+.interruptor {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--objetivo-tactil);
+  height: var(--objetivo-tactil);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .interruptor:hover {
+    transform: rotate(-12deg) scale(1.06);
+    border-color: var(--accent);
+  }
+}
+
+.interruptor:active {
+  transform: scale(0.94);
+}
+
+.interruptor svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}

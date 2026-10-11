@@ -1,0 +1,196 @@
+.portada {
+  padding-block: clamp(1.25rem, 3vw, 2.25rem) clamp(2.5rem, 6vw, 4rem);
+}
+
+/* ------------------------- indicación y acciones ------------------------- */
+
+.barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.indicaciones {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+
+.indicacion {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.simboloAsa {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* Región aria-live visible: confirma cada cambio de orden en < 400 ms.
+   Alto fijo de dos líneas (tres en pantallas muy angostas), vacía o no: que
+   aparezca o cambie un mensaje nunca desplaza la grilla. El recorte es solo
+   visual; el lector de pantalla recibe el texto completo. */
+.estado {
+  display: -webkit-box;
+  height: calc(2 * 1.4em);
+  margin: 0.35rem 0 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+@media (max-width: 22rem) {
+  .estado {
+    height: calc(3 * 1.4em);
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* Alineadas a la derecha también cuando bajan de línea, con ancho constante:
+   «Restablecer orden» siempre ocupa su lugar (ver .reservado). */
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+/* Invisible, sin foco y fuera del árbol de accesibilidad, pero reservando su espacio. */
+.reservado {
+  visibility: hidden;
+}
+
+/* Muy angosto (< 352 px): botones compactos y sin icono para que quepan en una fila. */
+@media (max-width: 22rem) {
+  .acciones button {
+    gap: 0.35rem;
+    padding-inline: 0.7rem;
+    font-size: 0.84rem;
+  }
+
+  .acciones button svg {
+    display: none;
+  }
+}
+
+/* ------------------------------ grilla bento ----------------------------- */
+/* Los tamaños van en los slots; ni la grilla ni los slots recortan (overflow),
+   para que la tarjeta arrastrada se vea por encima de las demás. */
+
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    'intro intro'
+    'foto experiencia'
+    'stack stack'
+    'contacto contacto'
+    'ubicacion ubicacion';
+  grid-auto-rows: minmax(9.5rem, auto);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slot {
+  display: flex;
+  min-width: 0;
+  border-radius: var(--radius);
+}
+
+.slot > * {
+  flex: 1 1 auto;
+}
+
+.grilla > [data-swapy-slot='intro'] {
+  grid-area: intro;
+}
+
+.grilla > [data-swapy-slot='foto'] {
+  grid-area: foto;
+}
+
+.grilla > [data-swapy-slot='experiencia'] {
+  grid-area: experiencia;
+}
+
+.grilla > [data-swapy-slot='stack'] {
+  grid-area: stack;
+}
+
+.grilla > [data-swapy-slot='contacto'] {
+  grid-area: contacto;
+}
+
+.grilla > [data-swapy-slot='ubicacion'] {
+  grid-area: ubicacion;
+}
+
+/* Slot de destino mientras se arrastra: contorno, no solo color de fondo. */
+.slot[data-swapy-highlighted] {
+  outline: 2px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+/* Muy angosto (< 352 px): una columna, mismo orden que el DOM. */
+@media (max-width: 22rem) {
+  .grilla {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'intro'
+      'foto'
+      'experiencia'
+      'stack'
+      'contacto'
+      'ubicacion';
+  }
+
+  .grilla > [data-swapy-slot='foto'] {
+    min-height: 16rem;
+  }
+}
+
+@media (min-width: 40rem) {
+  .grilla {
+    grid-template-areas:
+      'intro intro'
+      'foto experiencia'
+      'foto stack'
+      'contacto ubicacion';
+  }
+}
+
+@media (min-width: 64rem) {
+  .grilla {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      'intro intro intro foto'
+      'experiencia stack stack foto'
+      'contacto contacto ubicacion ubicacion';
+    grid-auto-rows: minmax(11rem, auto);
+    gap: 1.1rem;
+  }
+}

@@ -1,0 +1,19 @@
+/* Estructura común de las secciones con ancla. */
+
+.seccion {
+  padding-block: clamp(2.75rem, 7vw, 5rem);
+  border-top: 1px solid var(--border);
+}
+
+/* Secciones alternas sobre una banda de fondo (Ley de Región Común). */
+.banda {
+  background: color-mix(in srgb, var(--bg-soft) 85%, transparent);
+}
+
+.subtitulo {
+  margin: 0 0 1rem;
+  color: var(--accent);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

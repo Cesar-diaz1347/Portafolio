@@ -1,0 +1,236 @@
+.controles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .fila {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+    align-items: start;
+  }
+
+  .modo {
+    grid-column: 1 / -1;
+  }
+}
+
+/* En escritorio: escenario, parámetros y modo del paso 2 en una sola fila, para que el simulador quede más arriba. */
+@media (min-width: 64rem) {
+  .fila {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.5fr) auto;
+  }
+
+  .modo {
+    grid-column: auto;
+  }
+
+  .opciones {
+    flex-direction: column;
+  }
+}
+
+.escenario {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.4rem;
+}
+
+.etiqueta,
+.leyenda {
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.selector,
+.entrada {
+  width: 100%;
+  min-height: var(--objetivo-tactil);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+}
+
+.entrada {
+  min-width: 6rem;
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.entrada[aria-invalid='true'] {
+  border-color: var(--peligro);
+  box-shadow: inset 0 0 0 1px var(--peligro);
+}
+
+.descripcion {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.parametros,
+.modo {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.leyenda {
+  margin-bottom: 0.4rem;
+}
+
+.camposParametros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.campo {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.mensaje {
+  max-width: 22rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+/* El error lleva un signo propio: no depende solo del color. */
+.error {
+  color: var(--peligro);
+}
+
+.error::before {
+  content: '⚠ ';
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.opcion {
+  display: block;
+}
+
+.opcionTexto {
+  display: grid;
+  gap: 0.1rem;
+  min-height: var(--objetivo-tactil);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.detalle {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+input:checked + .opcionTexto {
+  border-color: var(--accent);
+  background: var(--tinte);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+input:checked + .opcionTexto strong::before {
+  content: '✓ ';
+}
+
+input:focus-visible + .opcionTexto {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.nota {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.detalles {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+}
+
+.resumen {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: var(--objetivo-tactil);
+  padding: 0.5rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.editado {
+  padding: 0 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: var(--radius-pill);
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
+.ayuda {
+  margin: 0;
+  padding: 0.25rem 0.9rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tablasDatos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+  padding: 0.75rem 0.9rem 1rem;
+}
+
+.tituloTabla {
+  margin: 0 0 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+.soloLectura {
+  color: var(--muted);
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+.resumenErrores {
+  margin: 0;
+  color: var(--peligro);
+  font-size: 0.9rem;
+}

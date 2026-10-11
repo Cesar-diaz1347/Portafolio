@@ -12,15 +12,21 @@
     <meta name="theme-color" content="#0b1220" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f7fb" />
 
-    <!-- Open Graph: og:image es relativa por ahora; al elegir el repo destino se fija la URL absoluta (ver README). -->
+    <!--
+      SEO y vista previa al compartir: usan la URL definitiva https://cesar-diaz1347.github.io/Portafolio/ (absoluta,
+      porque WhatsApp, LinkedIn y Google no resuelven rutas relativas). Si el sitio cambia de repositorio o de dominio,
+      actualiza esas URLs aquí y en el JSON-LD de abajo. La foto está en public/perfil-og.jpg para que su URL no cambie.
+    -->
+    <link rel="canonical" href="https://cesar-diaz1347.github.io/Portafolio/" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cesar-diaz1347.github.io/Portafolio/" />
     <meta property="og:locale" content="es_GT" />
     <meta property="og:title" content="César Díaz — Desarrollador Full Stack &amp; Especialista ETL / SQL Server" />
     <meta
       property="og:description"
       content="8+ años integrando sistemas críticos en banca, retail y manufactura. Demos en vivo de proyectos reales."
     />
-    <meta property="og:image" content="/src/assets/perfil.jpg" />
+    <meta property="og:image" content="https://cesar-diaz1347.github.io/Portafolio/perfil-og.jpg" />
     <meta property="og:image:width" content="432" />
     <meta property="og:image:height" content="432" />
     <meta property="og:image:alt" content="Retrato de César Alejandro Díaz Cano" />
@@ -54,6 +60,8 @@
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "César Alejandro Díaz Cano",
+        "url": "https://cesar-diaz1347.github.io/Portafolio/",
+        "image": "https://cesar-diaz1347.github.io/Portafolio/perfil-og.jpg",
         "jobTitle": "Desarrollador Full Stack & Especialista ETL / SQL Server",
         "description": "Desarrollador Full Stack (React, C# / .NET 8-10, SQL Server) y especialista en ingeniería de datos con SSIS, SSRS y ETL/ELT.",
         "email": "mailto:cesar.diaz1347@gmail.com",

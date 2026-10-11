@@ -1,0 +1,108 @@
+/* Página del simulador: usa los tokens del sitio (tokens.css) y su tema (data-theme). */
+
+.pagina {
+  /* Estados que el sitio no define; contraste ≥ 4.5:1 sobre --surface en cada tema. */
+  --peligro: #fca5a5;
+  --peligro-fondo: color-mix(in srgb, #ef4444 14%, var(--surface));
+  --peligro-borde: color-mix(in srgb, #ef4444 55%, var(--border));
+  --aviso: #fcd34d;
+  --alto-barra: 5.75rem;
+
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+[data-theme='light'] .pagina {
+  --peligro: #b91c1c;
+  --aviso: #92400e;
+}
+
+.contenedor {
+  width: min(100% - 2rem, 82rem);
+  margin-inline: auto;
+}
+
+.principal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.saltar {
+  position: absolute;
+  top: -4rem;
+  left: 0.75rem;
+  z-index: 50;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 700;
+}
+
+.saltar:focus {
+  top: 0.75rem;
+}
+
+.simulador {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.tituloSeccion {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+/*
+ * Móvil: la explicación, el código y después las tablas. Escritorio: explicación y tablas a la
+ * izquierda y el código fijo a la derecha, para verlo mientras se baja por las tablas.
+ */
+.rejilla {
+  --alto-codigo: 20rem;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'paso'
+    'codigo'
+    'datos';
+  gap: 1rem;
+}
+
+.paso {
+  grid-area: paso;
+  min-width: 0;
+}
+
+.codigo {
+  grid-area: codigo;
+  min-width: 0;
+}
+
+.datos {
+  grid-area: datos;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (min-width: 64rem) {
+  .rejilla {
+    --alto-codigo: max(16rem, calc(100vh - 14rem));
+
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'paso codigo'
+      'datos codigo';
+    align-items: start;
+  }
+
+  .codigo {
+    position: sticky;
+    top: calc(var(--alto-barra) + 0.75rem);
+  }
+}

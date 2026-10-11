@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Números y fechas con formato invariante, sin depender de la cultura de la máquina. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <!--
+    El repo Control-de-Pagos es de solo lectura: se enlazan sus .cs tal cual y nunca se compila su
+    proyecto. Por defecto se busca como carpeta hermana del portafolio; otra ruta se indica con
+    -p:ControlPagosRaiz="C:\ruta\Control de pagos" (si es relativa, se toma desde esta carpeta).
+  -->
+  <PropertyGroup>
+    <ControlPagosRaiz Condition="'$(ControlPagosRaiz)' == ''">..\..\..\Control de pagos</ControlPagosRaiz>
+    <ControlPagosCarpeta>$([MSBuild]::NormalizeDirectory('$(MSBuildProjectDirectory)', '$(ControlPagosRaiz)'))</ControlPagosCarpeta>
+    <FuenteCalculo>backend\src\ControlPagos.Api\Services\DeudaCalculoService.cs</FuenteCalculo>
+    <FuenteEstado>backend\src\ControlPagos.Api\Dtos\EstadoDeuda.cs</FuenteEstado>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(ControlPagosCarpeta)$(FuenteCalculo)" Link="Original\DeudaCalculoService.cs" />
+    <Compile Include="$(ControlPagosCarpeta)$(FuenteEstado)" Link="Original\EstadoDeuda.cs" />
+  </ItemGroup>
+
+  <!-- Procedencia para el fixture y el informe: SDK de compilación y fuentes enlazadas (se hashean al ejecutar). -->
+  <ItemGroup>
+    <AssemblyMetadata Include="SdkVersion" Value="$(NETCoreSdkVersion)" />
+    <AssemblyMetadata Include="ControlPagosRaiz" Value="$(ControlPagosCarpeta)" />
+    <AssemblyMetadata Include="Fuente.Calculo" Value="$(FuenteCalculo)" />
+    <AssemblyMetadata Include="Fuente.Estado" Value="$(FuenteEstado)" />
+  </ItemGroup>
+
+  <!-- Sin el repo original no hay nada que comparar: mejor este mensaje que un CS2001. -->
+  <Target Name="VerificarControlDePagos" BeforeTargets="CoreCompile">
+    <Error Condition="!Exists('$(ControlPagosCarpeta)$(FuenteCalculo)') Or !Exists('$(ControlPagosCarpeta)$(FuenteEstado)')"
+           Text="No se encuentran los .cs de Control-de-Pagos en '$(ControlPagosCarpeta)'. Indica la carpeta del repo con -p:ControlPagosRaiz=&quot;C:\ruta\Control de pagos&quot;." />
+  </Target>
+
+</Project>

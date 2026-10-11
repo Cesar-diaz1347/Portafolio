@@ -1,0 +1,156 @@
+.columnas {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 64rem) {
+  .columnas {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 3rem;
+  }
+}
+
+/* --------------- línea de tiempo (Ley de Conectividad Uniforme) ---------- */
+
+.lineaTiempo {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0 0 0 1.75rem;
+  list-style: none;
+}
+
+/* La línea que une los puestos. */
+.lineaTiempo::before {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.55rem;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 25%, var(--border)));
+}
+
+.item {
+  position: relative;
+}
+
+/* Un punto por puesto, centrado sobre la línea. */
+.item::before {
+  content: '';
+  position: absolute;
+  top: 1.45rem;
+  left: calc(-1.75rem + 0.55rem + 1px - 7px);
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+/* Puesto actual: punto relleno (además del texto «Presente»). */
+.item[data-actual]::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--tinte);
+}
+
+.puesto {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cargo {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.empresa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin: 0.2rem 0 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.modalidad {
+  padding: 0.05rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.fechas {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.duracion {
+  font-weight: 600;
+}
+
+.logros {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.95rem;
+}
+
+.logros li::marker {
+  color: var(--accent);
+}
+
+/* ------------------------------- formación ------------------------------- */
+
+.carrera {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-weight: 600;
+}
+
+.subtituloCertificaciones {
+  margin-top: 2rem;
+}
+
+.conteo {
+  color: var(--muted);
+}
+
+.certificaciones {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.certificacion {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.nombreCertificacion {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.metaCertificacion {
+  color: var(--muted);
+  font-size: 0.86rem;
+}

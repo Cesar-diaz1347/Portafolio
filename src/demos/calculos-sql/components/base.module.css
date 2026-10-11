@@ -1,0 +1,126 @@
+/* Piezas comunes de los paneles y las tablas de la demo. */
+
+.panel {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.tituloPanel {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.subtitulo {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.vacio {
+  margin: 0;
+  padding: 0.5rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* Si la tabla es más ancha que la pantalla, se desplaza dentro de su caja (y se llega con el teclado). */
+/* position: relative también contiene el texto solo-lectores (absoluto) de las celdas: si no, escapa del scroll y ensancha la página. */
+.scroll {
+  position: relative;
+  overflow-x: auto;
+  border-radius: var(--radius-sm);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla th,
+.tabla td {
+  padding: 0.45rem 0.65rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.tabla thead th {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.tabla tbody th {
+  font-weight: 600;
+}
+
+.tabla tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.tabla .num {
+  text-align: right;
+}
+
+/* Tabla que no se estira a todo el ancho: las cifras quedan cerca de sus títulos. */
+.compacta {
+  width: auto;
+  min-width: min(100%, 34rem);
+}
+
+/* En pantallas estrechas se omiten las columnas menos útiles para que quepan las que importan. */
+@media (max-width: 39.99rem) {
+  .tabla th,
+  .tabla td {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .tabla .ocultoMovil {
+    display: none;
+  }
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+
+/* La fila que este paso toca: fondo, borde izquierdo y un marcador de texto en su primera celda. */
+.marcada {
+  background: var(--tinte);
+}
+
+.marcada > :first-child {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.marcador {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Valor que cambió respecto al paso anterior: fondo suave y la palabra «cambió», no solo color. */
+.cambio {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.insignia {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: var(--radius-pill);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.nulo {
+  color: var(--muted);
+  font-style: italic;
+}

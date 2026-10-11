@@ -1,0 +1,92 @@
+/* Botones y enlaces con forma de botón. Mismo estilo = misma función (Ley de la Semejanza). */
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: var(--objetivo-tactil);
+  padding: 0.6rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--duracion) ease,
+    border-color var(--duracion) ease,
+    background-color var(--duracion) ease,
+    box-shadow var(--duracion) ease;
+}
+
+/* Solo con puntero real: en táctil el :hover se queda «atascado». */
+@media (hover: hover) {
+  .boton:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* Confirmación inmediata al presionar (Umbral de Doherty). */
+.boton:active {
+  transform: scale(0.98);
+}
+
+.boton svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: currentColor;
+}
+
+.boton img {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+/* El único CTA primario del sitio (Efecto Von Restorff). */
+.primario {
+  border-color: transparent;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: var(--accent-contrast);
+}
+
+.secundario {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+}
+
+.fantasma {
+  background: transparent;
+}
+
+.compacto {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.88rem;
+}
+
+.ancho {
+  width: 100%;
+}
+
+/* Interruptores (aria-pressed): fondo teñido y borde del acento, no solo color de texto. */
+.boton[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--tinte);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Inactivo pero enfocable: el foco no se pierde al llegar a un extremo. */
+.boton[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

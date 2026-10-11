@@ -1,0 +1,37 @@
+.pie {
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+}
+
+.textos {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.texto {
+  margin: 0;
+}
+
+.arriba {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--objetivo-tactil);
+  font-weight: 600;
+}
+
+.arriba svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}

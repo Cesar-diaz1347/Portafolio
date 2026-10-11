@@ -1,0 +1,14 @@
+/* Demo del portafolio: los controles táctiles miden al menos 44 px (Mantine los trae de 28 a 36). */
+.mantine-Button-root,
+.mantine-ActionIcon-root,
+.mantine-Burger-root,
+.mantine-NavLink-root,
+.mantine-SegmentedControl-label,
+.mantine-Input-input {
+  min-height: 44px;
+}
+
+.mantine-ActionIcon-root,
+.mantine-Burger-root {
+  min-width: 44px;
+}

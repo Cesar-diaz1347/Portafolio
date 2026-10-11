@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Le indica al navegador que la app controla su propio tema (claro/oscuro),
+   para que no reemplace el toggle con el modo forzado del sistema/navegador. */
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Foco visible para quien navega con teclado, con contraste suficiente en cada fondo. */
+:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+html.dark :focus-visible,
+aside :focus-visible {
+  outline-color: #bfdbfe;
+}
+
+/* Sin animaciones para quien lo pide en su sistema. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,95 @@
+/* Barra de control del recorrido: fija arriba mientras se baja por las tablas. */
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-areas:
+    'estado'
+    'progreso'
+    'botones';
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.estado {
+  grid-area: estado;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.95rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titulo {
+  color: var(--muted);
+}
+
+.progreso {
+  grid-area: progreso;
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+}
+
+.progreso > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.2s ease;
+}
+
+.botones {
+  grid-area: botones;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  gap: 0.5rem;
+}
+
+.boton {
+  min-width: var(--objetivo-tactil);
+  padding-inline: 0.8rem;
+}
+
+/* En pantallas estrechas, Reiniciar y Final son solo icono; el texto queda para lectores de pantalla. */
+@media (max-width: 39.99rem) {
+  .textoOpcional {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 40rem) {
+  .barra {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'estado botones'
+      'progreso progreso';
+    align-items: center;
+  }
+
+  .botones {
+    display: flex;
+  }
+
+  .boton {
+    padding-inline: 1.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progreso > span {
+    transition: none;
+  }
+}

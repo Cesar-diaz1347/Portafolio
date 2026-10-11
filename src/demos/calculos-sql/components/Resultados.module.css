@@ -1,0 +1,150 @@
+.resultados {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  scroll-margin-top: 1rem;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.tarjeta {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.nombre {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.valor {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.ayudaTarjeta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.lista {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.92rem;
+}
+
+.item svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.15rem;
+  fill: var(--aviso);
+}
+
+.exclusiones {
+  padding: 0;
+}
+
+.resumenExclusiones {
+  min-height: var(--objetivo-tactil);
+  padding: 0.75rem 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.exclusiones[open] > .resumenExclusiones {
+  border-bottom: 1px solid var(--border);
+}
+
+.exclusiones .lista {
+  padding: 0.9rem 1.15rem 1rem;
+}
+
+/* Alerta de la guarda o de datos inválidos: borde, icono y título, no solo color. */
+.alerta {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--peligro-borde);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  background: var(--peligro-fondo);
+}
+
+.alertaTitulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--peligro);
+  font-weight: 700;
+}
+
+.alertaTitulo svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.mensajeSql {
+  margin: 0;
+  overflow-x: auto;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-size: 0.95rem;
+}
+
+.mensajeSql code {
+  font-family: var(--mono);
+}
+
+.alertaAyuda {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.errores {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.2rem;
+}

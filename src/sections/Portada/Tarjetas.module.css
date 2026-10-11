@@ -1,0 +1,304 @@
+/* ==========================================================================
+   Tarjetas de la portada. Cada una ocupa el 100 % de su slot y se adapta al
+   ancho del slot con container queries, porque puede terminar en cualquiera.
+   ========================================================================== */
+
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  container-type: inline-size;
+  transition:
+    border-color var(--duracion) ease,
+    box-shadow var(--duracion) ease;
+}
+
+/* Tarjeta en vuelo: elevada y con borde del acento. */
+.tarjeta[data-swapy-dragging] {
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+  cursor: grabbing;
+}
+
+.rotulo {
+  margin: 0;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Deja libre la esquina del asa: 44 px + 8 px de margen, menos el padding de la tarjeta. */
+.conAsa {
+  min-height: 1.6rem;
+  padding-right: 2.4rem;
+}
+
+/* Tarjetas angostas (≈ 160 px en móvil): el rótulo más largo de una sola
+   palabra («EXPERIENCIA») debe caber junto al asa sin quedar debajo. */
+@container (max-width: 12rem) {
+  .rotulo {
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+.texto {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* --------------------------------- intro --------------------------------- */
+
+.intro {
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, var(--surface)), var(--surface) 65%);
+}
+
+.nombre {
+  margin: 0;
+  font-size: 1.65rem;
+  line-height: 1.1;
+}
+
+.titulo {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.frase {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.cta {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+}
+
+@container (min-width: 26rem) {
+  .nombre {
+    font-size: 2.1rem;
+  }
+
+  .titulo {
+    font-size: 1.05rem;
+  }
+}
+
+@container (min-width: 38rem) {
+  .nombre {
+    font-size: 2.6rem;
+  }
+
+  .frase {
+    max-width: 56ch;
+    font-size: 1.05rem;
+  }
+}
+
+/* ---------------------------------- foto --------------------------------- */
+
+.foto {
+  justify-content: flex-end;
+  padding: 0.75rem;
+  background: #000;
+}
+
+/* Sin overflow:hidden: la imagen hereda el redondeo de la tarjeta. */
+.imagenFoto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--radius) - 1px);
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+/* ------------------------------ experiencia ------------------------------ */
+
+.experiencia {
+  justify-content: space-between;
+}
+
+.cifra {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.numero {
+  color: var(--accent);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.unidad {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sectores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.5rem;
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  list-style: none;
+}
+
+.separador {
+  margin-left: 0.5rem;
+  color: var(--accent);
+}
+
+@container (min-width: 20rem) {
+  .numero {
+    font-size: 3rem;
+  }
+}
+
+/* -------------------------------- contacto ------------------------------- */
+
+.accionesContacto {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+@container (min-width: 28rem) {
+  .accionesContacto {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* -------------------------------- ubicación ------------------------------ */
+
+.datos {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  list-style: none;
+}
+
+.datos li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.datos svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  fill: var(--accent);
+}
+
+@container (min-width: 30rem) {
+  .datos {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 0.5rem 1.5rem;
+  }
+}
+
+/* ------------------------- modo «Reordenar» ------------------------------ */
+
+.controles {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 0.6rem;
+  border: 1px dashed color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-2) 94%, transparent);
+}
+
+.posicion {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.botonesMover {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@container (min-width: 22rem) {
+  .botonesMover {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Tarjetas angostas: sin icono y con menos relleno, el texto cabe dentro del recuadro. */
+@container (max-width: 12rem) {
+  .botonesMover > button {
+    padding-inline: 0.5rem;
+    font-size: 0.84rem;
+  }
+
+  .botonesMover > button svg {
+    display: none;
+  }
+}
+
+/* ---------------------------------- asa ---------------------------------- */
+
+.asa {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: var(--objetivo-tactil);
+  height: var(--objetivo-tactil);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  color: var(--muted);
+  cursor: grab;
+  /* Solo el asa bloquea el scroll táctil: arrastrar desde aquí no desplaza la página. */
+  touch-action: none;
+}
+
+.asa:hover {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.asa:active {
+  cursor: grabbing;
+}
+
+.asa svg {
+  width: 12px;
+  height: 18px;
+  fill: currentColor;
+}

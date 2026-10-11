@@ -1,0 +1,164 @@
+/* sticky dentro de body equivale a fija y sirve de referencia al panel móvil. */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.interior {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--alto-header);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: var(--objetivo-tactil);
+  margin-right: auto;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.monograma {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--accent-contrast);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.marcaTexto {
+  line-height: 1.2;
+}
+
+.lema {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.botonMenu {
+  display: none;
+  flex: none;
+  place-items: center;
+  width: var(--objetivo-tactil);
+  height: var(--objetivo-tactil);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.botonMenu svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.lista {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.enlace {
+  display: flex;
+  align-items: center;
+  min-height: var(--objetivo-tactil);
+  padding: 0 0.75rem;
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--duracion) ease,
+    background-color var(--duracion) ease;
+}
+
+.enlace:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Sección actual: fondo teñido y barra del acento, no solo un cambio de color. */
+.enlace[aria-current] {
+  background: var(--tinte);
+  box-shadow: inset 0 -2px 0 var(--accent);
+  color: var(--text);
+}
+
+@media (max-width: 47.99rem) {
+  .botonMenu {
+    display: inline-grid;
+  }
+
+  .lista {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+  }
+
+  .lista[data-abierto='true'] {
+    display: flex;
+  }
+
+  .enlace {
+    padding: 0 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+  }
+
+  .enlace[aria-current] {
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+}
+
+/* En pantallas muy angostas el texto de la marca se oculta a la vista, pero
+   sigue siendo el nombre accesible del enlace. */
+@media (max-width: 26rem) {
+  .lema {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

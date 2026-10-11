@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Tokens de diseño. Paleta de Portafolio1.2: oscuro por defecto con acento cian,
+   más un tema claro. El script inline de index.html pone data-theme en <html>.
+   Contrastes (texto sobre --bg / --surface): --text > 13:1, --muted ≥ 5:1 y
+   --accent ≥ 5:1 en ambos temas.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --bg: #0b1220;
+  --bg-soft: #0f182b;
+  --surface: #131f36;
+  --surface-2: #1a2942;
+  --border: #24344f;
+  --text: #e8eef9;
+  --muted: #93a4c0;
+  --accent: #22d3ee;
+  --accent-2: #38bdf8;
+  --accent-contrast: #04121a;
+  --ok: #34d399;
+  --shadow: 0 18px 40px rgb(2 8 20 / 0.55);
+  --shadow-sm: 0 8px 18px rgb(2 8 20 / 0.4);
+  --tinte: color-mix(in srgb, var(--accent) 14%, transparent);
+
+  --radius: 14px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+  --maxw: 1140px;
+  --alto-header: 4rem;
+  --objetivo-tactil: 44px;
+  --duracion: 0.18s;
+
+  --font: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'Cascadia Mono', Consolas, 'SFMono-Regular', ui-monospace, monospace;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f4f7fb;
+  --bg-soft: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #eef3fa;
+  --border: #d5dfec;
+  --text: #10203a;
+  --muted: #56698a;
+  --accent: #0e7490;
+  --accent-2: #0369a1;
+  --accent-contrast: #ffffff;
+  --ok: #065f46;
+  --shadow: 0 14px 32px rgb(16 32 58 / 0.12);
+  --shadow-sm: 0 6px 16px rgb(16 32 58 / 0.1);
+}

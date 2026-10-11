@@ -1,0 +1,19 @@
+/* Primer elemento enfocable: salta la navegación y lleva directo al contenido. */
+.saltar {
+  position: absolute;
+  top: -3.5rem;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.saltar:focus-visible {
+  top: 1rem;
+}

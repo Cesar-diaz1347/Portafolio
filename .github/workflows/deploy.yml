@@ -1,0 +1,72 @@
+# Publica el portafolio en GitHub Pages en cada push a main (o a mano desde la pestaña Actions).
+# Requisito único en GitHub: Settings → Pages → Build and deployment → Source: «GitHub Actions».
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una sola publicación a la vez; si llega otra, espera en vez de cortar la que está en curso.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+
+      - name: Preparar Node 24 con caché de npm
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            demos-src/*/package-lock.json
+
+      - name: Instalar dependencias del portafolio
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Pruebas del portafolio
+        run: npm test
+
+      # npm ci, pruebas y build de cada demo; copia su dist a public/demos/<slug>/.
+      - name: Construir las demos
+        run: node scripts/build-demos.mjs --con-tests
+
+      - name: Construir el portafolio
+        run: npm run build
+
+      - name: Verificar dist
+        run: npm run verify:dist
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Subir el sitio
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
