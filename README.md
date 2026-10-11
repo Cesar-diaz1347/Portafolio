@@ -15,7 +15,6 @@ Sitio de una sola página de **César Alejandro Díaz Cano**, desarrollador Full
 | Calidad | Vitest 5, Oxlint |
 | Publicación | GitHub Pages con GitHub Actions |
 
-Requisitos: Node 24 y npm 11, los mismos que usa el CI.
 
 ## Estructura
 
@@ -35,91 +34,6 @@ Requisitos: Node 24 y npm 11, los mismos que usa el CI.
 ├─ tools/paridad-deudas/       Consola C# que regenera el fixture de paridad de Control de cuentas
 └─ .github/workflows/deploy.yml
 ```
-
-## Comandos
-
-| Comando | Qué hace |
-|---|---|
-| `npm run dev` | Servidor de desarrollo en <http://localhost:5173/> |
-| `npm run build` | Revisa tipos (`tsc -b`) y genera `dist/` |
-| `npm run build:demos` | Compila cada app de `demos-src/` y copia su `dist` a `public/demos/<slug>/`. Opciones: `--solo <slug>`, `--sin-instalar` (no corre `npm ci` si la demo ya tiene `node_modules`) y `--con-tests` (corre `npm test` de la demo antes del build) |
-| `npm run build:all` | `build:demos` y luego `build`: el sitio completo |
-| `npm run preview` | Sirve `dist/` en <http://localhost:4173/> |
-| `npm test` | Pruebas con Vitest |
-| `npm run lint` | Oxlint |
-| `npm run verify:dist` | Comprueba `dist/`: que estén todas las páginas, que los enlaces relativos resuelvan y que existan los CV y el favicon. Opción: `--dist <ruta>` para revisar otra carpeta |
-| `npm run capturas` | Regenera las portadas de los proyectos (`src/assets/proyectos/<slug>.webp`, 1280×800, y `<slug>-800.webp`) con Edge headless (requiere `build:all`). Opciones: `--solo=<slug>`, `--escenario=<id>` y `--paso=<n>` (demo SQL), `--salida=<carpeta>` y `--formato=png` (por defecto, webp) |
-
-> **Antes de `dev` o `preview`, corre `npm run build:demos` (o `build:all`) al menos una vez.** Sin `public/demos/`, los enlaces «Ver demo en vivo» de Reservas, Pokédex y Control de cuentas no encuentran su página. La demo SQL no lo necesita, porque forma parte del build.
-
-Las opciones se pasan después de `--`: `npm run build:demos -- --solo reservas --sin-instalar`.
-
-Primera vez:
-
-```sh
-npm ci
-npm run build:all
-npm run preview
-```
-
-## Cómo funcionan las demos
-
-- **Fuente única.** `demos.config.json` lista las demos. Las de tipo `app` son copias completas en `demos-src/<slug>/`; la de tipo `entrada` (`calculos-sql`) es una página más del build de Vite (`demos/calculos-sql/index.html` + `src/demos/calculos-sql/`).
-- **Copias, no los originales.** Cada app se copió a `demos-src/` con los cambios mínimos para funcionar como demo. `demos-src/ORIGEN.md` registra la procedencia (ruta o repositorio y SHA), lo que se excluyó y cada cambio. Los proyectos originales no se modifican.
-- **Datos simulados en el navegador.** Donde la app real usa un backend, la copia trae una capa demo que replica su API con latencia y datos de ejemplo:
-  - **Control de cuentas:** `src/api/demo/` reemplaza a axios y replica la API .NET (saldos, estados y fecha estimada de liquidación).
-  - **Reservas:** `src/services/` simula la API de reservas, con el plazo de gestión del jueves a las 5:00 p.m.
-  - **Pokédex:** usa la PokeAPI real (datos en vivo).
-  - **Cálculos SQL:** replica en TypeScript la lógica del script T-SQL y la recorre paso a paso. Cada escenario y paso tiene su enlace: `demos/calculos-sql/index.html?escenario=original&paso=15` (el paso cuenta desde 1).
-- **Rutas relativas.** Todo usa `base: './'`, así que el sitio funciona en cualquier repositorio o subruta de GitHub Pages. Los enlaces apuntan a `./demos/<slug>/index.html`.
-- **`localStorage` con prefijo propio,** porque todo `cesar-diaz1347.github.io` comparte origen: `cd-tema` (también en la demo SQL), `cd-portada-orden.v1`, `controlPagos.demo.v1`, `controlPagos.colorScheme`, `reservas.demo.v2` y `reservas.modoOscuro`. Pokédex conserva su clave original (`pokedex-theme`). «Reiniciar demo» borra solo la clave de datos de su demo.
-- **Paridad con el backend real.** Los cálculos de Control de cuentas se comprueban contra el C# original: `tools/paridad-deudas/` es la consola .NET que regenera `paridad.fixture.ts` (ver su README; hace falta el SDK de .NET 10).
-
-## Actualizar el contenido
-
-Todo el texto sale de `src/data/`, en TypeScript tipado: si falta un campo, el build falla.
-
-| Archivo | Contenido |
-|---|---|
-| `perfil.ts` | Nombre, título, resumen, años de experiencia, sectores y ubicación |
-| `experiencia.ts` | Puestos: cargo, empresa, fechas y logros (la duración se calcula) |
-| `educacion.ts` | Carrera y certificaciones |
-| `habilidades.ts` | Grupos de competencias y stack de la portada |
-| `contacto.ts` | Correo, WhatsApp (número y mensaje), redes y CV |
-| `proyectos.ts` | Tarjetas de proyectos: textos, stack, etiqueta de datos, repositorio y portada |
-| `portada.ts`, `navegacion.ts` | Tarjetas de la portada y enlaces del menú |
-
-- **CV:** reemplaza `public/cv/CV_Cesar_Diaz.pdf` y `public/cv/CV_Cesar_Diaz_EN.pdf` conservando los nombres. El tamaño que se muestra se recalcula en cada build.
-- **Foto:** `src/assets/perfil.jpg`, cuadrada.
-- **Portadas de proyectos:** corre `npm run build:all` y luego `npm run capturas`. Los archivos se llaman igual que antes, así que `src/data/proyectos.ts` no cambia; si una portada cambia mucho, ajusta su texto alternativo en ese archivo. Para la demo SQL, `--escenario=<id>` y `--paso=<n>` eligen qué se captura (por defecto, el paso 15 del escenario original).
-- **Una demo nueva:** añádela a `demos.config.json` y a `src/data/proyectos.ts`; una prueba comprueba que ambas listas coincidan.
-
-Tras cualquier cambio: `npm test`, `npm run lint` y `npm run build:all`.
-
-## Accesibilidad
-
-- La portada se puede reordenar sin arrastrar: con «Reordenar» («Mover antes / Mover después») o con las flechas sobre el asa. Cada cambio se anuncia en una región `aria-live`.
-- El sitio respeta `prefers-reduced-motion`: sin animaciones, y Swapy sin animar.
-- Todos los objetivos táctiles miden al menos 44×44 px, el foco es visible y la página incluye un enlace «Saltar al contenido».
-
-## Publicar en GitHub Pages
-
-El workflow `.github/workflows/deploy.yml` instala dependencias, revisa (lint y pruebas), compila las demos con sus pruebas, construye el sitio, verifica `dist/` y lo publica.
-
-Checklist de publicación:
-
-- [ ] Elegir el repositorio destino: reemplazar el contenido de `Portafolio` o crear un repositorio nuevo.
-- [ ] Hacer push de la rama principal.
-- [ ] En el repositorio, ir a **Settings → Pages → Build and deployment → Source** y elegir **GitHub Actions**.
-- [ ] Con la URL definitiva (por ejemplo `https://cesar-diaz1347.github.io/<repo>/`), editar `index.html` para:
-  - dejar `og:image` como URL absoluta (hoy es relativa) y añadir `og:url`;
-  - añadir `<link rel="canonical" href="…">`;
-  - añadir `url` e `image` al JSON-LD `Person`.
-- [ ] Verificar el primer deploy:
-  - el job termina en verde y el sitio abre en la URL;
-  - las cuatro demos cargan desde «Ver demo en vivo»;
-  - los dos CV se descargan;
-  - la vista previa al compartir el enlace muestra la foto.
 
 ## Licencias
 
