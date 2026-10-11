@@ -111,7 +111,11 @@ export default function Reservar({ usuario, fechaInicial, onReservaCompletada, o
       </div>
 
       <div className="px-4 py-6 md:px-8">
-        <ol aria-label="Pasos de la reserva" className="mb-8 flex items-center">
+        {/* Qué texto muestra cada paso depende del ancho de la propia lista (la barra lateral le quita sitio
+            en pantallas medianas), no del de la ventana: con la lista angosta solo se ve la etiqueta del paso
+            actual; desde 36rem, las etiquetas de todos; desde 62rem, también sus descripciones. Lo que no se
+            ve sigue disponible para los lectores de pantalla (sr-only). */}
+        <ol aria-label="Pasos de la reserva" className="mb-8 flex items-center [container-type:inline-size]">
           {PASOS.map((paso) => {
             const completado = paso.n < pasoActual;
             const actual = paso.n === pasoActual;
@@ -121,7 +125,8 @@ export default function Reservar({ usuario, fechaInicial, onReservaCompletada, o
                 aria-current={actual ? 'step' : undefined}
                 className={'flex items-center ' + (paso.n < PASOS.length ? 'flex-1' : '')}
               >
-                <div className="flex flex-shrink-0 items-center gap-3">
+                {/* min-w-max: el paso no cede su texto al de al lado, y el ancho mínimo del <li> lo cuenta. */}
+                <div className="flex min-w-max flex-shrink-0 items-center gap-3">
                   <span
                     aria-hidden="true"
                     className={
@@ -133,7 +138,7 @@ export default function Reservar({ usuario, fechaInicial, onReservaCompletada, o
                   >
                     {completado ? <Check size={16} /> : paso.n}
                   </span>
-                  <div className={actual ? '' : 'sr-only sm:not-sr-only'}>
+                  <div className={actual ? '' : 'sr-only [@container(min-width:36rem)]:not-sr-only'}>
                     <p
                       className={
                         'text-sm font-semibold ' +
@@ -143,14 +148,16 @@ export default function Reservar({ usuario, fechaInicial, onReservaCompletada, o
                       {paso.label}
                       {completado && <span className="sr-only"> (completado)</span>}
                     </p>
-                    <p className="hidden text-xs text-gray-600 dark:text-gray-300 sm:block">{paso.desc}</p>
+                    <p className="sr-only text-xs text-gray-600 dark:text-gray-300 [@container(min-width:62rem)]:not-sr-only">
+                      {paso.desc}
+                    </p>
                   </div>
                 </div>
                 {paso.n < PASOS.length && (
                   <span
                     aria-hidden="true"
                     className={
-                      'mx-3 h-0.5 min-w-6 flex-1 sm:mx-4 ' +
+                      'mx-2 h-0.5 min-w-3 flex-1 sm:mx-4 sm:min-w-6 ' +
                       (completado ? 'bg-orange-700' : 'bg-gray-300 dark:bg-gray-600')
                     }
                   />

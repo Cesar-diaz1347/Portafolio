@@ -118,6 +118,15 @@
   background: #000;
 }
 
+/* Si la foto cae en una fila baja (por ejemplo, junto a una tarjeta corta tras reordenar),
+   no pasa de ser una tira que le corta la cara: desde tableta tiene una altura mínima.
+   En móvil se queda como está (≈ cuadrada en su columna). */
+@media (min-width: 40rem) {
+  .foto {
+    min-height: 14rem;
+  }
+}
+
 /* Sin overflow:hidden: la imagen hereda el redondeo de la tarjeta. */
 .imagenFoto {
   position: absolute;

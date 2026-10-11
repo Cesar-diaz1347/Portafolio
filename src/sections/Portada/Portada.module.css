@@ -173,6 +173,7 @@
   }
 }
 
+/* Tableta (2 columnas): la foto abarca dos filas y queda casi cuadrada. */
 @media (min-width: 40rem) {
   .grilla {
     grid-template-areas:
@@ -183,12 +184,14 @@
   }
 }
 
+/* Escritorio (4 columnas): la foto ocupa una sola fila, junto a la presentación y a su
+   misma altura, para que no se vea alargada. */
 @media (min-width: 64rem) {
   .grilla {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-areas:
       'intro intro intro foto'
-      'experiencia stack stack foto'
+      'experiencia stack stack stack'
       'contacto contacto ubicacion ubicacion';
     grid-auto-rows: minmax(11rem, auto);
     gap: 1.1rem;
