@@ -1,8 +1,8 @@
 /** Secciones con ancla, en el orden de la página y de la navegación. */
 export const SECCIONES = [
   { id: 'resumen', texto: 'Resumen' },
-  { id: 'trayectoria', texto: 'Trayectoria' },
   { id: 'proyectos', texto: 'Proyectos' },
+  { id: 'trayectoria', texto: 'Trayectoria' },
   { id: 'contacto', texto: 'Contacto' },
 ] as const
 

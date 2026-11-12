@@ -7,7 +7,7 @@ import { Proyectos } from './sections/Proyectos/Proyectos'
 import { Resumen } from './sections/Resumen/Resumen'
 import { Trayectoria } from './sections/Trayectoria/Trayectoria'
 
-/** Una sola página con anclas: Header · Portada · Resumen · Trayectoria · Proyectos · Contacto · Footer. */
+/** Una sola página con anclas: Header · Portada · Resumen · Proyectos · Trayectoria · Contacto · Footer. */
 function App() {
   return (
     <>
@@ -18,8 +18,8 @@ function App() {
       <main id="contenido" tabIndex={-1}>
         <Portada />
         <Resumen />
-        <Trayectoria />
         <Proyectos />
+        <Trayectoria />
         <Contacto />
       </main>
       <Footer />

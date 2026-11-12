@@ -14,13 +14,9 @@ export function Trayectoria() {
   const desde = Math.min(...PUESTOS.map((puesto) => puesto.inicio.anio))
 
   return (
-    <section
-      id="trayectoria"
-      className={cx(seccion.seccion, seccion.banda)}
-      aria-labelledby="titulo-trayectoria"
-    >
+    <section id="trayectoria" className={seccion.seccion} aria-labelledby="titulo-trayectoria">
       <div className="contenedor">
-        <EncabezadoSeccion id="titulo-trayectoria" rotulo="02 · Trayectoria" titulo="Experiencia y formación">
+        <EncabezadoSeccion id="titulo-trayectoria" rotulo="03 · Trayectoria" titulo="Experiencia y formación">
           <p>
             {PUESTOS.length} puestos en {empresas} empresas desde {desde}, más {CERTIFICACIONES.length}{' '}
             certificaciones en datos y nube.
